@@ -11,3 +11,11 @@ The main purpose of this app is:
 - Docker compose
 - Jest
 
+### Set up local environment
+
+1. Create .env file with the following environment variables:
+```
+POSTGRES_USER=
+POSTGRES_PASSWORD=
+POSTGRES_DB=
+```
