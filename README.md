@@ -18,4 +18,5 @@ The main purpose of this app is:
 POSTGRES_USER=
 POSTGRES_PASSWORD=
 POSTGRES_DB=
+POSTGRES_HOST=
 ```
