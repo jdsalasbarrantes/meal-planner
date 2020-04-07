@@ -13,7 +13,7 @@ export class TypeOrmOptionsService implements TypeOrmOptionsFactory {
             username: this.configService.getVariable('POSTGRES_USER'),
             password: this.configService.getVariable('POSTGRES_PASSWORD'),
             database: this.configService.getVariable('POSTGRES_DB'),
-            port: 5432,
+            port: parseInt(this.configService.getVariable('POSTGRES_PORT')),
             entities: [`${__dirname}/../**/*.entity{.ts,.js}`],
             synchronize: true,
         };
