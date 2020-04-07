@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { TypeOrmOptionsService } from "./config/typeorm.options.service";
 import { ConfigModule } from "./config/config.module";
-import { AuthModule } from './auth/auth.module';
-import { ProductsModule } from './products/products.module';
+import { UsersModule } from './users/users.module';
+import { RecipesModule } from './recipes/recipes.module';
 
 @Module({
     imports: [
@@ -11,8 +11,8 @@ import { ProductsModule } from './products/products.module';
             useClass: TypeOrmOptionsService
         }),
         ConfigModule,
-        AuthModule,
-        ProductsModule,
+        UsersModule,
+        RecipesModule,
     ],
     controllers: [],
     providers: [],

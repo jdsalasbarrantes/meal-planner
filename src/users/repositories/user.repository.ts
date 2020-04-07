@@ -1,6 +1,6 @@
 import { EntityRepository, Repository } from "typeorm";
-import { User } from "./user.entity";
-import { AuthCredentialsDto } from "./dto/auth-credentials.dto";
+import { User } from "../entities/user.entity";
+import { AuthCredentialsDto } from "../dtos/auth-credentials.dto";
 import { ConflictException, InternalServerErrorException } from "@nestjs/common";
 import * as bcrypt from 'bcrypt';
 
