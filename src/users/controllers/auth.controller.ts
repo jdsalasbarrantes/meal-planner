@@ -3,7 +3,6 @@ import {
     Controller,
     Post,
     Req,
-    UseGuards,
     ValidationPipe,
 } from '@nestjs/common';
 import { AuthCredentialsDto } from '../dtos/auth-credentials.dto';
