@@ -32,5 +32,37 @@ services:
     ports:
       - "5432:5432"
     restart: unless-stopped
+
+  api_test:
+    image: node:12
+    ports:
+      - '3000:3000'
+    working_dir: /app
+    volumes:
+      - .:/app
+      - /node_modules
+    command: npm run test:watch
+    environment:
+      - NODE_ENV=development
+      - POSTGRES_USER=test
+      - POSTGRES_PASSWORD=test
+      - POSTGRES_DB=test
+      - POSTGRES_HOST=postgres_test
+      - POSTGRES_PORT=5432
+    depends_on:
+      - postgres_test
+    links:
+      - 'postgres_test:postgres_test'
+
+
+  postgres_test:
+    image: postgres:10
+    environment:
+      - POSTGRES_USER=test
+      - POSTGRES_PASSWORD=test
+      - POSTGRES_DB=test
+    ports:
+      - "5432:5432"
+
 volumes:
     meal_planner_pg_data:

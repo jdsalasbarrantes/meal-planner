@@ -7,8 +7,9 @@ node_modules/
 # environment variables file
 .envrc
 
-# Generate output
+# Generated output
 dist
+coverage
 
 # IDE
 .idea

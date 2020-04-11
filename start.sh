@@ -1,1 +1,1 @@
-docker-compose up
+docker-compose up api; docker-compose stop

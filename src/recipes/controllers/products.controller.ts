@@ -1,6 +1,10 @@
 import {
     Body,
     Controller,
+    Delete,
+    Get,
+    Param,
+    ParseIntPipe,
     Post,
     UseGuards,
     UsePipes,
@@ -22,5 +26,15 @@ export class ProductsController {
         @Body() createProductDto: CreateProductDto,
     ): Promise<Product> {
         return this.productsService.createProduct(createProductDto);
+    }
+
+    @Get('/:id')
+    getProductById(@Param('id', ParseIntPipe) id: number): Promise<Product> {
+        return this.productsService.getProductById(id);
+    }
+
+    @Delete('/:id')
+    deleteProduct(@Param('id', ParseIntPipe) id: number): Promise<void> {
+        return this.productsService.deleteProduct(id);
     }
 }

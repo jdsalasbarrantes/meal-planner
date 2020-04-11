@@ -17,7 +17,7 @@ export class ProductsService {
     }
 
     async getProductById(id: number): Promise<Product> {
-        const found = this.productRepository.findOne(id);
+        const found = await this.productRepository.findOne(id);
         if (!found) {
             throw new NotFoundException(`Product with id ${id} not found`);
         }
@@ -25,7 +25,7 @@ export class ProductsService {
     }
 
     async deleteProduct(id: number): Promise<void> {
-        const { affected } = await this.productRepository.delete({ id });
+        const { affected } = await this.productRepository.delete(id);
         if (affected === 0) {
             throw new NotFoundException(`Product with id ${id} not found`);
         }
