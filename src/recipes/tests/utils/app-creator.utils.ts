@@ -5,7 +5,7 @@ import { ConfigModule } from '../../../config/config.module';
 import { UsersModule } from '../../../users/users.module';
 import { RecipesModule } from '../../recipes.module';
 
-export const createRecipesApp = async () => {
+export const createRecipesApp = async (): Promise<object> => {
     const module = await Test.createTestingModule({
         imports: [
             TypeOrmModule.forRootAsync({

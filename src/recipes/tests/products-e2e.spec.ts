@@ -12,7 +12,7 @@ let app: INestApplication;
 let testingModule: TestingModule;
 let userRepository: Repository<User>;
 let productRepository: Repository<Product>;
-let user: any;
+let user: object;
 let product: Product;
 
 describe('Products e2e', () => {
