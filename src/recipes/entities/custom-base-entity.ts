@@ -1,6 +1,6 @@
 import { BaseEntity, Column } from 'typeorm';
 
 export class CustomBaseEntity extends BaseEntity {
-    @Column()
+    @Column({ nullable: true })
     createdAt: Date;
 }
