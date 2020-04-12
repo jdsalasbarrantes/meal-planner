@@ -12,7 +12,7 @@ let app: INestApplication;
 let testingModule: TestingModule;
 let userRepository: Repository<User>;
 let productRepository: Repository<Product>;
-let user: object;
+let user: { username: string; password: string; accessToken: string };
 let product: Product;
 
 describe('Products e2e', () => {
@@ -21,6 +21,7 @@ describe('Products e2e', () => {
         user = {
             username: 'test',
             password: 'testPassword!',
+            accessToken: '',
         };
         user.accessToken = await signInUser(app, user);
         userRepository = testingModule.get('UserRepository');

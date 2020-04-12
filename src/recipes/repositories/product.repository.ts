@@ -10,6 +10,7 @@ export class ProductRepository extends Repository<Product> {
         product.unitQuantity = createProductDto.unitQuantity;
         product.unitScale = createProductDto.unitScale;
         product.price = createProductDto.price;
+        product.createdAt = new Date();
         return product.save();
     }
 }
