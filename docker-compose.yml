@@ -41,7 +41,7 @@ services:
     volumes:
       - .:/app
       - /node_modules
-    command: npm run test:watch
+    command: npm run test
     environment:
       - NODE_ENV=development
       - POSTGRES_USER=test
