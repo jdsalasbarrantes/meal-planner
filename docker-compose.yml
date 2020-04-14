@@ -54,7 +54,6 @@ services:
     links:
       - 'postgres_test:postgres_test'
 
-
   postgres_test:
     image: postgres:10
     environment:

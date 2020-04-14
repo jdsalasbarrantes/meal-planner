@@ -77,6 +77,7 @@ describe('Recipes e2e', () => {
                     expect(body.description).toBe(body.description);
                     expect(body.resources).toBe(body.resources);
                     expect(body.preparationTime).toBe(body.preparationTime);
+                    expect(body.createdAt).toBeDefined();
                     recipe = body;
                 });
         });

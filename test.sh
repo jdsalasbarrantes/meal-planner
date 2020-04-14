@@ -1,1 +1,1 @@
-docker-compose up api_test; docker-compose stop
+docker-compose up api_test; docker-compose down -v

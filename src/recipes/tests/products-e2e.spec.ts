@@ -85,6 +85,7 @@ describe('Products e2e', () => {
                     expect(body.unitQuantity).toBe(body.unitQuantity);
                     expect(body.unitScale).toBe(body.unitScale);
                     expect(body.price).toBe(body.price);
+                    expect(body.createdAt).toBeDefined();
                     product = body;
                 });
         });

@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { CustomBaseEntity } from './custom-base-entity';
+import { Ingredient } from './ingredient.entity';
 
 @Entity()
 export class Product extends CustomBaseEntity {
@@ -17,4 +18,10 @@ export class Product extends CustomBaseEntity {
 
     @Column({ nullable: true })
     price: number;
+
+    @OneToMany(
+        () => Ingredient,
+        ingredient => ingredient.product,
+    )
+    public ingredients: Ingredient[];
 }
