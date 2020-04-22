@@ -3,7 +3,6 @@ import { UserRepository } from '../repositories/user.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AuthCredentialsDto } from '../dtos/auth-credentials.dto';
 import { JwtService } from '@nestjs/jwt';
-import { JwtPayload } from '../dtos/jwt-payload.interface';
 
 @Injectable()
 export class AuthService {
@@ -20,15 +19,14 @@ export class AuthService {
     async signIn(
         authCredentialsDto: AuthCredentialsDto,
     ): Promise<{ accessToken: string }> {
-        const username = await this.userRepository.validateUserPassword(
+        const user = await this.userRepository.validateUserPassword(
             authCredentialsDto,
         );
-        if (!username) {
+        if (!user) {
             throw new UnauthorizedException('Invalid credentials');
         }
 
-        const payload: JwtPayload = { username };
-        const accessToken = await this.jwtService.sign(payload);
+        const accessToken = await this.jwtService.sign(user);
         return { accessToken };
     }
 }
