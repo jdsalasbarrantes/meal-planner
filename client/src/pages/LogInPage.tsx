@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import Grid from '@material-ui/core/Grid';
 import CredentialsForm from '../components/CredentialsForm';
 import TabPanel from '../components/TabPanel';
-import AuthService from '../services/auth.service';
+import _isEmpty from 'lodash/isEmpty';
+import Grid from '@material-ui/core/Grid';
 import { AuthCredentials } from '../models/auth-credentials.model';
 import { User } from '../models/user.model';
-import _isEmpty from 'lodash/isEmpty';
+import authService from '../services/auth.service';
 import { userContext, UserContextProps } from '../contexts/UserContext';
 import { useStyles } from '../assets/styles';
 import { useSnackbar } from '../contexts/SnackbarContext';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import * as routes from '../constants/routes';
 
 const LogInPage: React.FC = (): JSX.Element => {
     const classes = useStyles();
@@ -23,14 +24,10 @@ const LogInPage: React.FC = (): JSX.Element => {
         authCredentials: AuthCredentials,
     ): Promise<void> => {
         if (tab === 0) {
-            const user: User = await AuthService.signIn(authCredentials);
+            const user: User = await authService.signIn(authCredentials);
             if (!_isEmpty(user)) {
                 setUser(user);
-                snackbar.showMessage(
-                    t('auth:notifications.signedIn'),
-                    'success',
-                );
-                history.push('/');
+                history.push(routes.LANDING_PAGE);
             } else {
                 snackbar.showMessage(
                     t('auth:notifications.signInFailed'),
@@ -38,7 +35,7 @@ const LogInPage: React.FC = (): JSX.Element => {
                 );
             }
         } else if (tab === 1) {
-            const success = await AuthService.signUp(authCredentials);
+            const success = await authService.signUp(authCredentials);
             if (success) {
                 snackbar.showMessage(
                     t('auth:notifications.signedUp'),
@@ -57,7 +54,7 @@ const LogInPage: React.FC = (): JSX.Element => {
         <userContext.Consumer>
             {({ setUser }: UserContextProps): JSX.Element => (
                 <Grid container justify="center">
-                    <Grid item xs={12} md={4} lg={3}>
+                    <Grid item xs={12} md={5} lg={3}>
                         <Grid item className={classes.mb5}>
                             <TabPanel
                                 tabLabels={[t('auth:signIn'), t('auth:signUp')]}

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
 import MaterialUITheme from './config/material-ui-theme';
-import Routes from './Routes';
 import { userContext } from './contexts/UserContext';
 import authService from './services/auth.service';
 import { User } from './models/user.model';
+import Routes from './Routes';
 import SnackbarProvider from './components/SnackbarProvider';
 
 const App: React.FC = (): JSX.Element => {
@@ -24,7 +24,7 @@ const App: React.FC = (): JSX.Element => {
                     autoHideDuration: 4000,
                     anchorOrigin: {
                         vertical: 'top',
-                        horizontal: 'center',
+                        horizontal: 'right',
                     },
                 }}
             >

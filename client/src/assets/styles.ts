@@ -45,6 +45,13 @@ const spacingStyles: { [field: string]: { [field: string]: string } } = {};
     });
 });
 
+const fontStyles: { [field: string]: { [field: string]: string } } = {
+    bold: {
+        fontWeight: 'bold',
+    },
+};
+
 export const useStyles = makeStyles({
     ...spacingStyles,
+    ...fontStyles,
 });

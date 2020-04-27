@@ -1,18 +1,20 @@
-import api from '../config/axios';
+import api from '../config/axios/axios-instance';
 import StorageService from './storage.service';
 import { AuthCredentials } from '../models/auth-credentials.model';
 import { AxiosResponse } from 'axios';
 import jwtDecode from 'jwt-decode';
 import { User } from '../models/user.model';
 
-export default class AuthService {
+class AuthService {
     static async signIn(authCredentials: AuthCredentials): Promise<User> {
         try {
             const response: AxiosResponse = await api.post(
                 '/auth/sign-in',
                 authCredentials,
             );
-            return jwtDecode(response.data.accessToken);
+            const user: User = jwtDecode(response.data.accessToken);
+            user.accessToken = response.data.accessToken;
+            return user;
         } catch (err) {
             return {};
         }
@@ -40,3 +42,5 @@ export default class AuthService {
         }
     }
 }
+
+export default AuthService;

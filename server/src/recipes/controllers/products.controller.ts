@@ -28,6 +28,11 @@ export class ProductsController {
         return this.productsService.createProduct(createProductDto);
     }
 
+    @Get()
+    getAllProducts(): Promise<Product[]> {
+        return this.productsService.getAllProducts();
+    }
+
     @Get('/:id')
     getProductById(@Param('id', ParseIntPipe) id: number): Promise<Product> {
         return this.productsService.getProductById(id);
