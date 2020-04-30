@@ -1,29 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import productsService from '../services/products.service';
-import Product from '../models/product.model';
-import ProductsTable from '../components/ProductsTable';
+import recipesService from '../services/recipes.service';
 import PageContainer from '../components/PageContainer';
+import RecipesTable from '../components/RecipesTable';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
 import { useStyles } from '../assets/styles';
-import { ADD_PRODUCT } from '../constants/routes';
+import { ADD_RECIPE } from '../constants/routes';
+import Recipe from '../models/recipe.model';
 
-const ProductsPage: React.FC = (): JSX.Element => {
+const RecipesPage: React.FC = (): JSX.Element => {
     const { t } = useTranslation();
     const history = useHistory();
     const classes = useStyles();
-    const [products, setProducts] = useState([] as Product[]);
+    const [recipes, setRecipes] = useState([] as Recipe[]);
     useEffect((): void => {
         (async (): Promise<void> => {
-            const data = await productsService.getAllProducts();
-            setProducts(data);
+            const data = await recipesService.getAllRecipes();
+            setRecipes(data);
         })();
     }, []);
 
-    const handleAddProduct = (): void => {
-        history.push(ADD_PRODUCT);
+    const handleAddRecipe = (): void => {
+        history.push(ADD_RECIPE);
     };
 
     return (
@@ -32,16 +32,16 @@ const ProductsPage: React.FC = (): JSX.Element => {
                 <Button
                     variant="contained"
                     color="primary"
-                    onClick={handleAddProduct}
+                    onClick={handleAddRecipe}
                 >
-                    {t('products:addProduct')}
+                    {t('recipes:addRecipe')}
                 </Button>
             </Grid>
-            <ProductsTable products={products} />
+            <RecipesTable recipes={recipes} />
         </PageContainer>
     );
 };
 
-ProductsPage.propTypes = {};
+RecipesPage.propTypes = {};
 
-export default ProductsPage;
+export default RecipesPage;

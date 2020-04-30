@@ -15,8 +15,12 @@ export class RecipesService {
         return this.recipeRepository.createRecipe(createRecipeDto);
     }
 
+    async getAllRecipes(): Promise<Recipe[]> {
+        return this.recipeRepository.find({});
+    }
+
     async getRecipeById(id: number): Promise<Recipe> {
-        const found = await this.recipeRepository.findOne(id);
+        const found = await this.recipeRepository.findOne(id, { relations: ["ingredients"]});
         if (!found) {
             throw new NotFoundException(`Recipe with id ${id} not found`);
         }
@@ -29,4 +33,6 @@ export class RecipesService {
             throw new NotFoundException(`Recipe with id ${id} not found`);
         }
     }
+
+
 }

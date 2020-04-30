@@ -7,6 +7,10 @@ const spacing: { [field: string]: string } = {
     3: '15px',
     4: '20px',
     5: '25px',
+    6: '30px',
+    7: '35px',
+    8: '40px',
+    9: '45px',
 };
 
 const spacingStyles: { [field: string]: { [field: string]: string } } = {};
@@ -45,6 +49,12 @@ const spacingStyles: { [field: string]: { [field: string]: string } } = {};
     });
 });
 
+const generalStyles: { [field: string]: { [field: string]: string } } = {
+    fullWidth: {
+        width: '100%',
+    },
+};
+
 const fontStyles: { [field: string]: { [field: string]: string } } = {
     bold: {
         fontWeight: 'bold',
@@ -54,4 +64,5 @@ const fontStyles: { [field: string]: { [field: string]: string } } = {
 export const useStyles = makeStyles({
     ...spacingStyles,
     ...fontStyles,
+    ...generalStyles,
 });

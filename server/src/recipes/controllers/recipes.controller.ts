@@ -26,6 +26,11 @@ export class RecipesController {
         return this.recipesService.createRecipe(createRecipeDto);
     }
 
+    @Get('/')
+    getAllRecipes(): Promise<Recipe[]> {
+        return this.recipesService.getAllRecipes();
+    }
+
     @Get('/:id')
     getRecipeById(@Param('id', ParseIntPipe) id: number): Promise<Recipe> {
         return this.recipesService.getRecipeById(id);

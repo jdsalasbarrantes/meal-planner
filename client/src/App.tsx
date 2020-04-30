@@ -24,7 +24,7 @@ const App: React.FC = (): JSX.Element => {
                     autoHideDuration: 4000,
                     anchorOrigin: {
                         vertical: 'top',
-                        horizontal: 'right',
+                        horizontal: 'center',
                     },
                 }}
             >

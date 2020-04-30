@@ -15,7 +15,7 @@ import { IngredientsService } from '../services/ingredients.service';
 import { CreateIngredientDto } from '../dtos/create-ingredient.dto';
 import { Ingredient } from '../entities/ingredient.entity';
 
-@Controller('ingredients')
+@Controller('recipes/:recipeId/ingredients')
 @UseGuards(AuthGuard())
 export class IngredientsController {
     constructor(private ingredientsService: IngredientsService) {}
@@ -23,8 +23,10 @@ export class IngredientsController {
     @Post()
     @UsePipes(ValidationPipe)
     createIngredient(
+        @Param('recipeId', ParseIntPipe) recipeId: number,
         @Body() createIngredientDto: CreateIngredientDto,
     ): Promise<Ingredient> {
+        createIngredientDto.recipeId = recipeId;
         return this.ingredientsService.createIngredient(createIngredientDto);
     }
 

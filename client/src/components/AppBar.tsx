@@ -8,20 +8,20 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { useStyles } from '../assets/styles';
 import { userContext, UserContextProps } from '../contexts/UserContext';
-import { LANDING_PAGE } from '../constants/routes';
+import { LANDING_PAGE, RECIPES_PAGE, PRODUCTS_PAGE } from '../constants/routes';
 
 const AppBar: React.FC = (): JSX.Element => {
     const history = useHistory();
     const classes = useStyles();
     const { t } = useTranslation();
 
-    const handleLogout = (setUser: Function) => (): void => {
-        setUser({});
-        history.push(LANDING_PAGE);
+    const handleRedirect = (route: string) => (): void => {
+        history.push(route);
     };
 
-    const handleAppNameClick = (): void => {
-        history.push(LANDING_PAGE);
+    const handleLogout = (setUser: Function) => (): void => {
+        setUser({});
+        handleRedirect(LANDING_PAGE);
     };
 
     return (
@@ -37,18 +37,33 @@ const AppBar: React.FC = (): JSX.Element => {
                             >
                                 <Button
                                     color="inherit"
-                                    onClick={handleAppNameClick}
+                                    onClick={handleRedirect(LANDING_PAGE)}
                                 >
                                     <Typography variant="h6">
                                         {t('common:appName')}
                                     </Typography>
                                 </Button>
-                                <Button
-                                    color="inherit"
-                                    onClick={handleLogout(setUser)}
-                                >
-                                    {t('auth:logOut')}
-                                </Button>
+                                <Grid>
+                                    <Button
+                                        color="inherit"
+                                        onClick={handleRedirect(RECIPES_PAGE)}
+                                    >
+                                        {t('common:recipes')}
+                                    </Button>
+                                    <Button
+                                        color="inherit"
+                                        onClick={handleRedirect(PRODUCTS_PAGE)}
+                                    >
+                                        {t('common:products')}
+                                    </Button>
+                                    <Button
+                                        color="inherit"
+                                        className={classes.ml9}
+                                        onClick={handleLogout(setUser)}
+                                    >
+                                        {t('auth:logOut')}
+                                    </Button>
+                                </Grid>
                             </Grid>
                         </Toolbar>
                     </MuiAppBar>

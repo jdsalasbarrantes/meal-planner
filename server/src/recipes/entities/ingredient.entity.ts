@@ -4,7 +4,8 @@ import { Recipe } from './recipe.entity';
 import { Product } from './product.entity';
 
 @Entity()
-export class Ingredient extends CustomBaseEntity {
+export class
+Ingredient extends CustomBaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 

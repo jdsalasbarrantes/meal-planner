@@ -3,7 +3,7 @@ import { CustomBaseEntity } from './custom-base-entity';
 import { Ingredient } from './ingredient.entity';
 
 @Entity()
-export class Recipe extends CustomBaseEntity {
+export class    Recipe extends CustomBaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 

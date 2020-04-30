@@ -5,6 +5,9 @@ import LogInPage from './pages/LogInPage';
 import DashboardPage from './pages/DashboardPage';
 import ProductsPage from './pages/ProductsPage';
 import AddProductPage from './pages/AddProductPage';
+import RecipesPage from './pages/RecipesPage';
+import AddRecipePage from './pages/AddRecipePage';
+import EditRecipePage from './pages/EditRecipePage';
 import AppBar from './components/AppBar';
 import { User } from './models/user.model';
 import _isEmpty from 'lodash/isEmpty';
@@ -37,6 +40,21 @@ const Routes: React.FC<RoutesProps> = ({ user }): JSX.Element => (
                         path={routes.ADD_PRODUCT}
                         exact
                         component={AddProductPage}
+                    />
+                    <Route
+                        path={routes.RECIPES_PAGE}
+                        exact
+                        component={RecipesPage}
+                    />
+                    <Route
+                        path={routes.ADD_RECIPE}
+                        exact
+                        component={AddRecipePage}
+                    />
+                    <Route
+                        path={routes.EDIT_RECIPE}
+                        exact
+                        component={EditRecipePage}
                     />
                 </Fragment>
             )}
