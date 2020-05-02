@@ -28,12 +28,12 @@ const IngredientsTable: React.FC<IngredientsTableProps> = ({
 }): JSX.Element => {
     const { t } = useTranslation();
 
-    const getProduct = (productId?: number): Product => {
+    const getProduct = (productId: number): Product => {
         const index = _findIndex(
             products,
             (product: Product) => product.id === productId,
         );
-        return index > -1 ? products[index] : {};
+        return products[index];
     };
 
     return ingredients.length === 0 ? (

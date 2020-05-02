@@ -55,6 +55,10 @@ const ProductsTable: React.FC<ProductsTableProps> = ({
     );
 };
 
+ProductsTable.defaultProps = {
+    products: [],
+};
+
 ProductsTable.propTypes = {
     products: PropTypes.array.isRequired,
 };

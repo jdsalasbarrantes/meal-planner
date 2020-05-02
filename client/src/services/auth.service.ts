@@ -1,12 +1,14 @@
 import api from '../config/axios/axios-instance';
 import StorageService from './storage.service';
-import { AuthCredentials } from '../models/auth-credentials.model';
+import AuthCredentials from '../models/auth-credentials.model';
 import { AxiosResponse } from 'axios';
 import jwtDecode from 'jwt-decode';
 import { User } from '../models/user.model';
 
 class AuthService {
-    static async signIn(authCredentials: AuthCredentials): Promise<User> {
+    static async signIn(
+        authCredentials: AuthCredentials,
+    ): Promise<User | null> {
         try {
             const response: AxiosResponse = await api.post(
                 '/auth/sign-in',
@@ -16,7 +18,7 @@ class AuthService {
             user.accessToken = response.data.accessToken;
             return user;
         } catch (err) {
-            return {};
+            return null;
         }
     }
 
@@ -33,12 +35,16 @@ class AuthService {
         StorageService.setItem('user', JSON.stringify(user));
     }
 
-    static getCurrentUser(): User {
+    static removeCurrentUser(): void {
+        StorageService.removeItem('user');
+    }
+
+    static getCurrentUser(): User | null {
         const stringUser = StorageService.getItem('user');
         if (stringUser) {
             return JSON.parse(stringUser);
         } else {
-            return {};
+            return null;
         }
     }
 }

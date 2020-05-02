@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useStyles } from '../assets/styles';
 import { useTranslation } from 'react-i18next';
 import Recipe from '../models/recipe.model';
-import { TextField, Select } from 'formik-material-ui';
+import { TextField } from 'formik-material-ui';
 import {
     Formik,
     Form,
@@ -45,11 +45,12 @@ const AddIngredientsToRecipe: React.FC<AddIngredientsToRecipeProps> = ({
                 <Form>
                     <Grid container direction="column">
                         <Field
-                            component={Select}
+                            component={TextField}
                             name="productId"
                             label={t('common:product')}
                             variant="outlined"
                             className={classes.mb3}
+                            select
                         >
                             {products.map(
                                 (product: Product): JSX.Element => (
@@ -57,7 +58,11 @@ const AddIngredientsToRecipe: React.FC<AddIngredientsToRecipeProps> = ({
                                         key={product.id}
                                         value={product.id}
                                     >
-                                        {`${product.name}`}
+                                        {`${product.name} (${
+                                            product.unitQuantity
+                                        } ${t(
+                                            `products:unitScales.${product.unitScale}`,
+                                        )})`}
                                     </MenuItem>
                                 ),
                             )}
@@ -90,9 +95,12 @@ AddIngredientsToRecipe.defaultProps = {
 };
 
 AddIngredientsToRecipe.propTypes = {
-    recipe: PropTypes.instanceOf(Recipe).isRequired,
     onSubmit: PropTypes.func.isRequired,
-    // products: PropTypes.arrayOf(PropTypes.instanceOf(Product))
+    recipe: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+    }).isRequired,
+    products: PropTypes.array.isRequired,
 };
 
 export default AddIngredientsToRecipe;

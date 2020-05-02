@@ -20,7 +20,7 @@ const AppBar: React.FC = (): JSX.Element => {
     };
 
     const handleLogout = (setUser: Function) => (): void => {
-        setUser({});
+        setUser(null);
         handleRedirect(LANDING_PAGE);
     };
 

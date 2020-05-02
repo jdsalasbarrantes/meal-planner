@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import CredentialsForm from '../components/CredentialsForm';
 import TabPanel from '../components/TabPanel';
-import _isEmpty from 'lodash/isEmpty';
 import Grid from '@material-ui/core/Grid';
-import { AuthCredentials } from '../models/auth-credentials.model';
-import { User } from '../models/user.model';
+import AuthCredentials from '../models/auth-credentials.model';
 import authService from '../services/auth.service';
 import { userContext, UserContextProps } from '../contexts/UserContext';
 import { useStyles } from '../assets/styles';
@@ -24,8 +22,8 @@ const LogInPage: React.FC = (): JSX.Element => {
         authCredentials: AuthCredentials,
     ): Promise<void> => {
         if (tab === 0) {
-            const user: User = await authService.signIn(authCredentials);
-            if (!_isEmpty(user)) {
+            const user = await authService.signIn(authCredentials);
+            if (user) {
                 setUser(user);
                 history.push(routes.LANDING_PAGE);
             } else {

@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './config/jwt-strategy';
+import { MealPlannerModule } from "../meal-planner/meal-planner.module";
 
 @Module({
     imports: [
@@ -19,6 +20,7 @@ import { JwtStrategy } from './config/jwt-strategy';
             },
         }),
         TypeOrmModule.forFeature([UserRepository]),
+        MealPlannerModule
     ],
     controllers: [AuthController],
     providers: [AuthService, JwtStrategy],

@@ -6,4 +6,8 @@ export default class StorageService {
     static getItem(key: string): string | null {
         return localStorage.getItem(key);
     }
+
+    static removeItem(key: string): void {
+        return localStorage.removeItem(key);
+    }
 }

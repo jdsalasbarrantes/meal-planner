@@ -8,6 +8,7 @@ export default {
     product: 'Product',
     recipes: 'Recipes',
     info: 'Info',
+    loading: 'loading',
     ingredients: 'Ingredients',
     actions: 'Actions',
     notifications: {

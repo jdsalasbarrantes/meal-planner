@@ -2,7 +2,7 @@ import React, { Suspense, Fragment } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Route } from 'react-router';
 import LogInPage from './pages/LogInPage';
-import DashboardPage from './pages/DashboardPage';
+import MealPlannerPage from './pages/MealPlannerPage';
 import ProductsPage from './pages/ProductsPage';
 import AddProductPage from './pages/AddProductPage';
 import RecipesPage from './pages/RecipesPage';
@@ -10,12 +10,12 @@ import AddRecipePage from './pages/AddRecipePage';
 import EditRecipePage from './pages/EditRecipePage';
 import AppBar from './components/AppBar';
 import { User } from './models/user.model';
-import _isEmpty from 'lodash/isEmpty';
 import * as routes from './constants/routes';
 import PropTypes from 'prop-types';
+import _isEmpty from 'lodash/isEmpty';
 
 interface RoutesProps {
-    user: User;
+    user: User | {};
 }
 
 const Routes: React.FC<RoutesProps> = ({ user }): JSX.Element => (
@@ -29,7 +29,7 @@ const Routes: React.FC<RoutesProps> = ({ user }): JSX.Element => (
                     <Route
                         path={routes.LANDING_PAGE}
                         exact
-                        component={DashboardPage}
+                        component={MealPlannerPage}
                     />
                     <Route
                         path={routes.PRODUCTS_PAGE}

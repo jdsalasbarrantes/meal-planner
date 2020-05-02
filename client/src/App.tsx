@@ -8,12 +8,17 @@ import Routes from './Routes';
 import SnackbarProvider from './components/SnackbarProvider';
 
 const App: React.FC = (): JSX.Element => {
-    const [user, setUser] = useState(authService.getCurrentUser());
+    const currentUser = authService.getCurrentUser();
+    const [user, setUser] = useState(currentUser ? currentUser : null);
     const userContextValue = {
         user,
-        setUser: (user: User): void => {
+        setUser: (user: User | null): void => {
             setUser(user);
-            authService.setCurrentUser(user);
+            if (user) {
+                authService.setCurrentUser(user);
+            } else {
+                authService.removeCurrentUser();
+            }
         },
     };
 
@@ -29,7 +34,7 @@ const App: React.FC = (): JSX.Element => {
                 }}
             >
                 <userContext.Provider value={userContextValue}>
-                    <Routes user={user} />
+                    <Routes user={user ? user : {}} />
                 </userContext.Provider>
             </SnackbarProvider>
         </ThemeProvider>

@@ -1,9 +1,10 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { CustomBaseEntity } from './custom-base-entity';
 import { Ingredient } from './ingredient.entity';
+import { ScheduledMeal } from "../../meal-planner/entities/scheduled-meal.entity";
 
 @Entity()
-export class    Recipe extends CustomBaseEntity {
+export class Recipe extends CustomBaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -23,5 +24,12 @@ export class    Recipe extends CustomBaseEntity {
         () => Ingredient,
         ingredient => ingredient.recipe,
     )
-    public ingredients: Ingredient[];
+    ingredients: Ingredient[];
+
+    @OneToMany(
+        () => ScheduledMeal,
+        scheduledMeal => scheduledMeal.recipe,
+        { cascade: true}
+    )
+    scheduledMeals: ScheduledMeal[];
 }

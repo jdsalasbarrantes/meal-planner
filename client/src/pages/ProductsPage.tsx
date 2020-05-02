@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import productsService from '../services/products.service';
-import Product from '../models/product.model';
 import ProductsTable from '../components/ProductsTable';
 import PageContainer from '../components/PageContainer';
 import Grid from '@material-ui/core/Grid';
@@ -14,7 +13,7 @@ const ProductsPage: React.FC = (): JSX.Element => {
     const { t } = useTranslation();
     const history = useHistory();
     const classes = useStyles();
-    const [products, setProducts] = useState([] as Product[]);
+    const [products, setProducts] = useState();
     useEffect((): void => {
         (async (): Promise<void> => {
             const data = await productsService.getAllProducts();

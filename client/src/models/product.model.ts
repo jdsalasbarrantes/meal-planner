@@ -1,8 +1,8 @@
-export default class Product {
-    id?: number;
-    name?: string;
-    unitQuantity?: number;
-    unitScale?: string;
+export default interface Product {
+    id: number;
+    name: string;
+    unitQuantity: number;
+    unitScale: string;
     price?: number;
 }
 

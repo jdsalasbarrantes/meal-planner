@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useTranslation } from 'react-i18next';
 import { useStyles } from '../assets/styles';
-import { TextField, Select } from 'formik-material-ui';
+import { TextField } from 'formik-material-ui';
 import { unitScaleTypes } from '../models/product.model';
 import {
     Formik,
@@ -54,18 +54,11 @@ const ProductForm: React.FC<ProductFormProps> = ({
                         />
                         <Field
                             component={TextField}
-                            name="unitQuantity"
-                            type="number"
-                            label={t('products:properties.unitQuantity')}
-                            variant="outlined"
-                            className={classes.mb3}
-                        />
-                        <Field
-                            component={Select}
                             name="unitScale"
                             label={t('products:properties.unitScale')}
                             variant="outlined"
                             className={classes.mb3}
+                            select
                         >
                             {unitScaleTypes.map(
                                 (unitScaleType): JSX.Element => (
@@ -78,6 +71,14 @@ const ProductForm: React.FC<ProductFormProps> = ({
                                 ),
                             )}
                         </Field>
+                        <Field
+                            component={TextField}
+                            name="unitQuantity"
+                            type="number"
+                            label={t('products:properties.unitQuantity')}
+                            variant="outlined"
+                            className={classes.mb3}
+                        />
                         <Field
                             component={TextField}
                             name="price"

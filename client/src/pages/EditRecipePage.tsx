@@ -12,7 +12,6 @@ import { useTranslation } from 'react-i18next';
 import { RECIPES_PAGE } from '../constants/routes';
 import { useSnackbar } from '../contexts/SnackbarContext';
 import Recipe from '../models/recipe.model';
-import Product from '../models/product.model';
 import _isEmpty from 'lodash/isEmpty';
 import TabPanel from '../components/TabPanel';
 import Grid from '@material-ui/core/Grid';
@@ -25,17 +24,19 @@ const EditRecipePage: React.FC = (): JSX.Element => {
     const location = useLocation();
     const classes = useStyles();
 
-    const [recipe, setRecipe] = useState({} as Recipe);
-    const [products, setProducts] = useState([] as Product[]);
-    const [tab, setTab] = useState(1);
+    const [recipe, setRecipe] = useState();
+    const [products, setProducts] = useState();
+    const [tab, setTab] = useState(0);
 
     useEffect((): void => {
         (async (): Promise<void> => {
             const id: number = parseInt(location.search.split('=')[1]);
             const recipe = await recipesService.getRecipeById(id);
-            const products = await productsService.getAllProducts();
-            setRecipe(recipe);
-            setProducts(products);
+            if (recipe) {
+                setRecipe(recipe);
+                const products = await productsService.getAllProducts();
+                setProducts(products);
+            }
         })();
     }, [location.search]);
 
@@ -53,7 +54,7 @@ const EditRecipePage: React.FC = (): JSX.Element => {
         const storedIngredient = await ingredientsService.addIngredient(
             ingredient,
         );
-        if (!_isEmpty(storedIngredient)) {
+        if (storedIngredient) {
             let recipeIngredients = recipe.ingredients;
             if (recipeIngredients) {
                 recipeIngredients.push(storedIngredient);
@@ -76,10 +77,7 @@ const EditRecipePage: React.FC = (): JSX.Element => {
     ): Promise<void> => {
         const deleted = await ingredientsService.deleteIngredient(ingredient);
         if (deleted) {
-            console.log(index);
-            const recipeIngredients = recipe.ingredients
-                ? recipe.ingredients
-                : [];
+            const recipeIngredients = recipe.ingredients;
             recipeIngredients.splice(index, 1);
             setRecipe({ ...recipe, ingredients: recipeIngredients });
             snackbar.showMessage(
@@ -91,6 +89,7 @@ const EditRecipePage: React.FC = (): JSX.Element => {
         }
     };
 
+    console.log(products);
     return (
         <PageContainer lgSize={5}>
             {!_isEmpty(recipe) && (
@@ -118,21 +117,18 @@ const EditRecipePage: React.FC = (): JSX.Element => {
                                 <Grid
                                     item
                                     xs={12}
-                                    md={7}
-                                    className={`${classes.pr5} ${classes.pb5}`}
+                                    md={6}
+                                    className={classes.mb5}
                                 >
                                     <IngredientsTable
-                                        ingredients={
-                                            recipe.ingredients
-                                                ? recipe.ingredients
-                                                : []
-                                        }
-                                        products={products ? products : []}
+                                        ingredients={recipe.ingredients}
+                                        products={products}
                                         onDeleteIngredient={
                                             handleDeleteIngredient
                                         }
                                     />
                                 </Grid>
+                                <Grid item xs={1} />
                                 <Grid item xs={12} md={5}>
                                     <AddIngredientsToRecipe
                                         recipe={recipe}

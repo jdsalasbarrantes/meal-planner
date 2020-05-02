@@ -12,12 +12,12 @@ class RecipesService {
         }
     }
 
-    static async getRecipeById(id: number): Promise<Recipe> {
+    static async getRecipeById(id: number): Promise<Recipe | null> {
         try {
             const response: AxiosResponse = await api.get(`/recipes/${id}`);
             return response.data;
         } catch (err) {
-            return {};
+            return null;
         }
     }
 

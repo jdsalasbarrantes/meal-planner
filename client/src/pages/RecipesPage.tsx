@@ -8,13 +8,12 @@ import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
 import { useStyles } from '../assets/styles';
 import { ADD_RECIPE } from '../constants/routes';
-import Recipe from '../models/recipe.model';
 
 const RecipesPage: React.FC = (): JSX.Element => {
     const { t } = useTranslation();
     const history = useHistory();
     const classes = useStyles();
-    const [recipes, setRecipes] = useState([] as Recipe[]);
+    const [recipes, setRecipes] = useState();
     useEffect((): void => {
         (async (): Promise<void> => {
             const data = await recipesService.getAllRecipes();

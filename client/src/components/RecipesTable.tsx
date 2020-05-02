@@ -77,6 +77,10 @@ const RecipesTable: React.FC<RecipesTableProps> = ({
     );
 };
 
+RecipesTable.defaultProps = {
+    recipes: [],
+};
+
 RecipesTable.propTypes = {
     recipes: PropTypes.array.isRequired,
 };

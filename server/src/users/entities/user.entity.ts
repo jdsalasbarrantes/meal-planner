@@ -4,8 +4,10 @@ import {
     Entity,
     PrimaryGeneratedColumn,
     Unique,
+    OneToOne
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { MealPlanner } from "../../meal-planner/entities/meal-planner.entity";
 
 @Entity()
 @Unique(['username'])
@@ -21,6 +23,9 @@ export class User extends BaseEntity {
 
     @Column()
     salt: string;
+
+    @OneToOne(() => MealPlanner)
+    mealPlanner: MealPlanner;
 
     async validatePassword(password: string): Promise<boolean> {
         const hash = await bcrypt.hash(password, this.salt);

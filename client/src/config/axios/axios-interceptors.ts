@@ -1,5 +1,4 @@
 import authService from '../../services/auth.service';
-import _isEmpty from 'lodash/isEmpty';
 import { LOGIN_PAGE } from '../../constants/routes';
 import {
     AxiosInstance,
@@ -14,7 +13,7 @@ export default function (api: AxiosInstance): void {
         (config: AxiosRequestConfig): AxiosRequestConfig => {
             const newConfig = { ...config };
             const user = authService.getCurrentUser();
-            if (!_isEmpty(user)) {
+            if (user) {
                 newConfig.headers = {
                     'Access-Control-Allow-Headers': '*',
                     Authorization: `Bearer ${user.accessToken}`,
@@ -28,7 +27,7 @@ export default function (api: AxiosInstance): void {
         (response: AxiosResponse): AxiosResponse => response,
         (error: AxiosError): AxiosError | Promise<AxiosError> => {
             if (error.response && error.response.status === 401) {
-                authService.setCurrentUser({});
+                authService.removeCurrentUser();
                 window.location.replace(LOGIN_PAGE);
                 return Promise.reject(error);
             }

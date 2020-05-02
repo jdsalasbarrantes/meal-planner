@@ -3,7 +3,9 @@ import { AxiosResponse } from 'axios';
 import Ingredient from '../models/ingredient.model';
 
 class IngredientsService {
-    static async addIngredient(ingredient: Ingredient): Promise<Ingredient> {
+    static async addIngredient(
+        ingredient: Ingredient,
+    ): Promise<Ingredient | null> {
         try {
             const response: AxiosResponse = await api.post(
                 `/recipes/${ingredient.recipeId}/ingredients`,
@@ -11,7 +13,7 @@ class IngredientsService {
             );
             return response.data;
         } catch (err) {
-            return {};
+            return null;
         }
     }
 

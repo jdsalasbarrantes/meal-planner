@@ -50,7 +50,7 @@ const CredentialsForm: React.FC<CredentialsFormProps> = ({
                             label={t('common:username')}
                             variant="outlined"
                             className={classes.mb3}
-                        ></Field>
+                        />
                         <Field
                             component={TextField}
                             name="password"
@@ -58,7 +58,7 @@ const CredentialsForm: React.FC<CredentialsFormProps> = ({
                             label={t('common:password')}
                             variant="outlined"
                             className={classes.mb3}
-                        ></Field>
+                        />
                         <Grid container wrap="nowrap">
                             <Button
                                 variant="contained"

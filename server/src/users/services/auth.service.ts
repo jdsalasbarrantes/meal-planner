@@ -3,6 +3,7 @@ import { UserRepository } from '../repositories/user.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AuthCredentialsDto } from '../dtos/auth-credentials.dto';
 import { JwtService } from '@nestjs/jwt';
+import { MealPlannerService } from "../../meal-planner/services/meal-planner.service";
 
 @Injectable()
 export class AuthService {
@@ -10,10 +11,12 @@ export class AuthService {
         @InjectRepository(UserRepository)
         private userRepository: UserRepository,
         private jwtService: JwtService,
+        private mealPlannerService: MealPlannerService,
     ) {}
 
     async signUp(authCredentialsDto: AuthCredentialsDto): Promise<void> {
-        return this.userRepository.singUp(authCredentialsDto);
+        const user = await this.userRepository.singUp(authCredentialsDto);
+        await this.mealPlannerService.createMealPlanner(user.id);
     }
 
     async signIn(
