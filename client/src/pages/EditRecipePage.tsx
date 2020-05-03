@@ -60,17 +60,9 @@ const EditRecipePage: React.FC = (): JSX.Element => {
     const handleAddIngredients = async (
         ingredient: Ingredient,
     ): Promise<void> => {
-        const storedIngredient = await ingredientsService.addIngredient(
-            ingredient,
-        );
-        if (storedIngredient) {
-            let recipeIngredients = recipe.ingredients;
-            if (recipeIngredients) {
-                recipeIngredients.push(storedIngredient);
-            } else {
-                recipeIngredients = [storedIngredient];
-            }
-            setRecipe({ ...recipe, ingredients: recipeIngredients });
+        const recipe = await ingredientsService.addIngredient(ingredient);
+        if (recipe) {
+            setRecipe(recipe);
             snackbar.showMessage(
                 t('recipes:notifications.ingredientAdded'),
                 'success',
@@ -82,13 +74,10 @@ const EditRecipePage: React.FC = (): JSX.Element => {
 
     const handleDeleteIngredient = async (
         ingredient: Ingredient,
-        index: number,
     ): Promise<void> => {
-        const deleted = await ingredientsService.deleteIngredient(ingredient);
-        if (deleted) {
-            const recipeIngredients = recipe.ingredients;
-            recipeIngredients.splice(index, 1);
-            setRecipe({ ...recipe, ingredients: recipeIngredients });
+        const recipe = await ingredientsService.deleteIngredient(ingredient);
+        if (recipe) {
+            setRecipe(recipe);
             snackbar.showMessage(
                 t('recipes:notifications.ingredientDeleted'),
                 'success',
@@ -130,6 +119,7 @@ const EditRecipePage: React.FC = (): JSX.Element => {
                                 >
                                     <IngredientsTable
                                         ingredients={recipe.ingredients}
+                                        recipeCost={recipe.cost}
                                         products={products}
                                         onDeleteIngredient={
                                             handleDeleteIngredient

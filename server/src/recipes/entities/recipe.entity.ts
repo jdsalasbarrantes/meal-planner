@@ -20,9 +20,13 @@ export class Recipe extends CustomBaseEntity {
     @Column({ nullable: true })
     preparationTime: number;
 
+    @Column({ default: 0})
+    cost: number;
+
     @OneToMany(
         () => Ingredient,
         ingredient => ingredient.recipe,
+        { eager: true, cascade: true }
     )
     ingredients: Ingredient[];
 

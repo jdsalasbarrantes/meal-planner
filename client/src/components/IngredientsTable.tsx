@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -19,11 +19,13 @@ interface IngredientsTableProps {
     ingredients: Ingredient[];
     products: Product[];
     onDeleteIngredient: Function;
+    recipeCost: number;
 }
 
 const IngredientsTable: React.FC<IngredientsTableProps> = ({
     ingredients,
     products,
+    recipeCost,
     onDeleteIngredient,
 }): JSX.Element => {
     const { t } = useTranslation();
@@ -39,68 +41,81 @@ const IngredientsTable: React.FC<IngredientsTableProps> = ({
     return ingredients.length === 0 ? (
         <Typography>{t('ingredients:emptyIngredients')}</Typography>
     ) : (
-        <TableContainer component={Paper}>
-            <Table size="small" aria-label="simple table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell>{t('products:properties.name')}</TableCell>
-                        <TableCell align="right">
-                            {t('ingredients:properties.quantity')}
-                        </TableCell>
-                        <TableCell align="right">
-                            {t('common:actions')}
-                        </TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {ingredients.map(
-                        (
-                            ingredient: Ingredient,
-                            index: number,
-                        ): JSX.Element => {
-                            const product = getProduct(ingredient.productId);
-                            return (
-                                <TableRow key={ingredient.id}>
-                                    <TableCell component="th" scope="row">
-                                        {product.name}
-                                    </TableCell>
-                                    <TableCell align="right">
-                                        {`${ingredient.quantity} ${t(
-                                            `products:unitScales.${product.unitScale}`,
-                                        )}`}
-                                    </TableCell>
-                                    <TableCell align="right">
-                                        <IconButton
-                                            color="primary"
-                                            onClick={(): void =>
-                                                onDeleteIngredient(
-                                                    ingredient,
-                                                    index,
-                                                )
-                                            }
-                                        >
-                                            <DeleteIcon />
-                                        </IconButton>
-                                    </TableCell>
-                                </TableRow>
-                            );
-                        },
-                    )}
-                </TableBody>
-            </Table>
-        </TableContainer>
+        <Fragment>
+            <TableContainer component={Paper}>
+                <Table size="small" aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>
+                                {t('products:properties.name')}
+                            </TableCell>
+                            <TableCell align="right">
+                                {t('ingredients:properties.quantity')}
+                            </TableCell>
+                            <TableCell align="right">
+                                {t('common:actions')}
+                            </TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {ingredients.map(
+                            (ingredient: Ingredient): JSX.Element => {
+                                const product = getProduct(
+                                    ingredient.productId,
+                                );
+                                return (
+                                    <TableRow key={ingredient.id}>
+                                        <TableCell component="th" scope="row">
+                                            {product.name}
+                                        </TableCell>
+                                        <TableCell align="right">
+                                            {`${ingredient.quantity} ${t(
+                                                `products:unitScales.${product.unitScale}`,
+                                            )}`}
+                                        </TableCell>
+                                        <TableCell align="right">
+                                            <IconButton
+                                                color="primary"
+                                                onClick={(): void =>
+                                                    onDeleteIngredient(
+                                                        ingredient,
+                                                    )
+                                                }
+                                            >
+                                                <DeleteIcon />
+                                            </IconButton>
+                                        </TableCell>
+                                    </TableRow>
+                                );
+                            },
+                        )}
+                        <TableRow>
+                            <TableCell colSpan={3} align="right">
+                                <Typography>
+                                    {`${t(
+                                        'recipes:properties.cost',
+                                    )}:  ${recipeCost}`}
+                                </Typography>
+                            </TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </Fragment>
     );
 };
 
 IngredientsTable.defaultProps = {
     ingredients: [],
     products: [],
+    recipeCost: 0,
 };
 
 IngredientsTable.propTypes = {
     onDeleteIngredient: PropTypes.func.isRequired,
     ingredients: PropTypes.array.isRequired,
     products: PropTypes.array.isRequired,
+    recipeCost: PropTypes.number.isRequired,
 };
 
 export default IngredientsTable;

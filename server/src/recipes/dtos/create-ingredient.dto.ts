@@ -7,9 +7,5 @@ export class CreateIngredientDto {
 
     @IsNumber()
     @IsPositive()
-    recipeId: number;
-
-    @IsNumber()
-    @IsPositive()
     quantity: number;
 }

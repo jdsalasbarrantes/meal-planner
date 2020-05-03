@@ -36,6 +36,9 @@ const RecipesTable: React.FC<RecipesTableProps> = ({
                             {t('recipes:properties.preparationTime')}
                         </TableCell>
                         <TableCell align="right">
+                            {t('recipes:properties.cost')}
+                        </TableCell>
+                        <TableCell align="right">
                             {t('common:actions')}
                         </TableCell>
                     </TableRow>
@@ -49,6 +52,9 @@ const RecipesTable: React.FC<RecipesTableProps> = ({
                                 </TableCell>
                                 <TableCell align="right">
                                     {recipe.preparationTime}
+                                </TableCell>
+                                <TableCell align="right">
+                                    {recipe.cost}
                                 </TableCell>
                                 <TableCell align="right">
                                     <IconButton

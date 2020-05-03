@@ -16,6 +16,7 @@ import { RecipesService } from '../services/recipes.service';
 import { CreateRecipeDto } from '../dtos/create-recipe.dto';
 import { Recipe } from '../entities/recipe.entity';
 import { UpdateRecipeDto } from "../dtos/update-recipe.dto";
+import { CreateIngredientDto } from "../dtos/create-ingredient.dto";
 
 @Controller('recipes')
 @UseGuards(AuthGuard())
@@ -50,5 +51,22 @@ export class RecipesController {
     @Delete('/:id')
     deleteRecipe(@Param('id', ParseIntPipe) id: number): Promise<void> {
         return this.recipesService.deleteRecipe(id);
+    }
+
+    @Post('/:recipeId/ingredients')
+    @UsePipes(ValidationPipe)
+    createIngredient(
+        @Param('recipeId', ParseIntPipe) recipeId: number,
+        @Body() createIngredientDto: CreateIngredientDto,
+    ): Promise<Recipe> {
+        return this.recipesService.createIngredient(recipeId, createIngredientDto);
+    }
+
+    @Delete('/:recipeId/ingredients/:id')
+    deleteIngredient(
+        @Param('recipeId', ParseIntPipe) recipeId: number,
+        @Param('id', ParseIntPipe) id: number
+    ): Promise<Recipe> {
+        return this.recipesService.deleteIngredient(recipeId, id);
     }
 }

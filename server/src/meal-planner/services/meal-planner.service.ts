@@ -5,7 +5,6 @@ import { MealPlanner } from "../entities/meal-planner.entity";
 import { WeekDays } from "../enums/week-days.enum";
 import { ScheduledMeal } from "../entities/scheduled-meal.entity";
 import { UpdateMealPlannerDto } from "../dtos/update-meal-planner.dto";
-import _ from 'lodash';
 
 @Injectable()
 export class MealPlannerService {

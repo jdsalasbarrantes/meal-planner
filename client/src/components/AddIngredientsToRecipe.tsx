@@ -99,6 +99,7 @@ AddIngredientsToRecipe.propTypes = {
     recipe: PropTypes.shape({
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
+        cost: PropTypes.number.isRequired,
     }).isRequired,
     products: PropTypes.array.isRequired,
 };

@@ -5,6 +5,7 @@ export default {
         resources: 'Resources',
         preparationTime: 'Preparation time in minutes',
         ingredients: 'Ingredients',
+        cost: 'Cost',
     },
     addRecipe: 'Add Recipe',
     notifications: {
