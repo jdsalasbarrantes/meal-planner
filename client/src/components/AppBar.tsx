@@ -4,6 +4,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import LogOutIcon from '@material-ui/icons/ExitToApp';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { useStyles } from '../assets/styles';
@@ -29,40 +30,49 @@ const AppBar: React.FC = (): JSX.Element => {
             {({ setUser }: UserContextProps): JSX.Element => (
                 <Grid container className={classes.mb5}>
                     <MuiAppBar position="static">
-                        <Toolbar>
+                        <Toolbar disableGutters>
                             <Grid
                                 container
-                                justify="space-between"
                                 wrap="nowrap"
+                                justify="space-between"
                             >
-                                <Button
-                                    color="inherit"
-                                    onClick={handleRedirect(LANDING_PAGE)}
-                                >
-                                    <Typography variant="h6">
-                                        {t('common:appName')}
-                                    </Typography>
-                                </Button>
-                                <Grid>
+                                <Grid item>
                                     <Button
                                         color="inherit"
-                                        onClick={handleRedirect(RECIPES_PAGE)}
+                                        onClick={handleRedirect(LANDING_PAGE)}
                                     >
-                                        {t('common:recipes')}
+                                        <Typography
+                                            className={classes.textAlignLeft}
+                                        >
+                                            {t('common:appName')}
+                                        </Typography>
                                     </Button>
-                                    <Button
-                                        color="inherit"
-                                        onClick={handleRedirect(PRODUCTS_PAGE)}
-                                    >
-                                        {t('common:products')}
-                                    </Button>
-                                    <Button
-                                        color="inherit"
-                                        className={classes.ml9}
-                                        onClick={handleLogout(setUser)}
-                                    >
-                                        {t('auth:logOut')}
-                                    </Button>
+                                </Grid>
+                                <Grid item>
+                                    <Grid container wrap="nowrap">
+                                        <Button
+                                            color="inherit"
+                                            onClick={handleRedirect(
+                                                RECIPES_PAGE,
+                                            )}
+                                        >
+                                            {t('common:recipes')}
+                                        </Button>
+                                        <Button
+                                            color="inherit"
+                                            onClick={handleRedirect(
+                                                PRODUCTS_PAGE,
+                                            )}
+                                        >
+                                            {t('common:products')}
+                                        </Button>
+                                        <Button
+                                            color="inherit"
+                                            onClick={handleLogout(setUser)}
+                                        >
+                                            <LogOutIcon />
+                                        </Button>
+                                    </Grid>
                                 </Grid>
                             </Grid>
                         </Toolbar>

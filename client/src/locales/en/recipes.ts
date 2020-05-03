@@ -9,6 +9,7 @@ export default {
     addRecipe: 'Add Recipe',
     notifications: {
         recipeAdded: 'Recipe added, woot woot!',
+        recipeUpdated: 'Recipe updated, woot woot!',
         ingredientAdded: 'Ingredient added, woot woot!',
         ingredientDeleted: 'Ingredient deleted, woot woot!',
     },

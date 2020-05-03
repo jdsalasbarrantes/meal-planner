@@ -77,7 +77,9 @@ const MealPlannerPage: React.FC = (): JSX.Element => {
                             <TableRow>
                                 {days.map(
                                     (day: string): JSX.Element => (
-                                        <TableCell key={day}>{day}</TableCell>
+                                        <TableCell key={day}>
+                                            {t(`common:days.${day}`)}
+                                        </TableCell>
                                     ),
                                 )}
                             </TableRow>

@@ -6,6 +6,7 @@ import {
     Param,
     ParseIntPipe,
     Post,
+    Put,
     UseGuards,
     UsePipes,
     ValidationPipe,
@@ -14,6 +15,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { RecipesService } from '../services/recipes.service';
 import { CreateRecipeDto } from '../dtos/create-recipe.dto';
 import { Recipe } from '../entities/recipe.entity';
+import { UpdateRecipeDto } from "../dtos/update-recipe.dto";
 
 @Controller('recipes')
 @UseGuards(AuthGuard())
@@ -34,6 +36,15 @@ export class RecipesController {
     @Get('/:id')
     getRecipeById(@Param('id', ParseIntPipe) id: number): Promise<Recipe> {
         return this.recipesService.getRecipeById(id);
+    }
+
+    @Put('/:id')
+    @UsePipes(ValidationPipe)
+    updateRecipe(
+        @Param('id', ParseIntPipe) id: number,
+        @Body() updateRecipeDto: UpdateRecipeDto
+    ): Promise<Recipe> {
+        return this.recipesService.updateRecipe(id, updateRecipeDto);
     }
 
     @Delete('/:id')

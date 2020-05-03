@@ -59,6 +59,9 @@ const fontStyles: { [field: string]: { [field: string]: string } } = {
     bold: {
         fontWeight: 'bold',
     },
+    textAlignLeft: {
+        textAlign: 'left',
+    },
 };
 
 export const useStyles = makeStyles({

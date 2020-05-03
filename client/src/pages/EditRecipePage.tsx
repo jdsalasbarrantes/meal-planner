@@ -44,8 +44,17 @@ const EditRecipePage: React.FC = (): JSX.Element => {
         history.push(RECIPES_PAGE);
     };
 
-    const handleSubmit = async (recipe: Recipe): Promise<void> => {
-        console.log(recipe);
+    const handleEditRecipe = async (recipe: Recipe): Promise<void> => {
+        const recipeUpdated = await recipesService.updateRecipe(recipe);
+        if (recipeUpdated) {
+            setRecipe(recipe);
+            snackbar.showMessage(
+                t('recipes:notifications.recipeUpdated'),
+                'success',
+            );
+        } else {
+            snackbar.showMessage(t('common:notifications.error'), 'error');
+        }
     };
 
     const handleAddIngredients = async (
@@ -89,7 +98,6 @@ const EditRecipePage: React.FC = (): JSX.Element => {
         }
     };
 
-    console.log(products);
     return (
         <PageContainer lgSize={5}>
             {!_isEmpty(recipe) && (
@@ -107,7 +115,7 @@ const EditRecipePage: React.FC = (): JSX.Element => {
                     <Grid item xs={12}>
                         {tab === 0 && (
                             <RecipeForm
-                                onSubmit={handleSubmit}
+                                onSubmit={handleEditRecipe}
                                 onCancel={redirectToRecipes}
                                 initialValues={recipe}
                             />

@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { RecipeRepository } from '../repositories/recipe.repository';
 import { CreateRecipeDto } from '../dtos/create-recipe.dto';
 import { Recipe } from '../entities/recipe.entity';
+import { UpdateRecipeDto } from "../dtos/update-recipe.dto";
 
 @Injectable()
 export class RecipesService {
@@ -25,6 +26,15 @@ export class RecipesService {
             throw new NotFoundException(`Recipe with id ${id} not found`);
         }
         return found;
+    }
+
+    async updateRecipe(id: number, updateRecipeDto: UpdateRecipeDto): Promise<Recipe> {
+        const recipe = await this.getRecipeById(id);
+        recipe.name = updateRecipeDto.name;
+        recipe.description = updateRecipeDto.description;
+        recipe.resources= updateRecipeDto.resources;
+        recipe.preparationTime = updateRecipeDto.preparationTime;
+        return recipe.save();
     }
 
     async deleteRecipe(id: number): Promise<void> {

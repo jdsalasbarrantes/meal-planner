@@ -29,6 +29,18 @@ class RecipesService {
             return false;
         }
     }
+
+    static async updateRecipe(recipe: Recipe): Promise<Recipe | null> {
+        try {
+            const response: AxiosResponse = await api.put(
+                `/recipes/${recipe.id}`,
+                recipe,
+            );
+            return response.data;
+        } catch (err) {
+            return null;
+        }
+    }
 }
 
 export default RecipesService;
