@@ -71,6 +71,7 @@ const AddIngredientsToRecipe: React.FC<AddIngredientsToRecipeProps> = ({
                             component={TextField}
                             name="quantity"
                             type="number"
+                            step="0.01"
                             label={t('ingredients:properties.quantity')}
                             variant="outlined"
                             className={classes.mb3}

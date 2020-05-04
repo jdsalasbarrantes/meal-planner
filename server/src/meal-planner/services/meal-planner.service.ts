@@ -5,6 +5,10 @@ import { MealPlanner } from "../entities/meal-planner.entity";
 import { WeekDays } from "../enums/week-days.enum";
 import { ScheduledMeal } from "../entities/scheduled-meal.entity";
 import { UpdateMealPlannerDto } from "../dtos/update-meal-planner.dto";
+import { Recipe } from "../../recipes/entities/recipe.entity";
+import { Product } from "../../recipes/entities/product.entity";
+import { Ingredient } from "../../recipes/entities/ingredient.entity";
+import { ProductSummaryDto } from "../dtos/product-summary.dto";
 
 @Injectable()
 export class MealPlannerService {
@@ -54,5 +58,9 @@ export class MealPlannerService {
         mealPlanner.scheduledMeals[scheduledMealIndex].customMeal = customMeal;
 
         return mealPlanner.save()
+    }
+
+    async getProductsSummary(userId: number): Promise<ProductSummaryDto[]> {
+        return this.mealPlannerRepository.getProductsSummary(userId);
     }
 }

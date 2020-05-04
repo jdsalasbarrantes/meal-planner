@@ -2,6 +2,7 @@ import api from '../config/axios/axios-instance';
 import { AxiosResponse } from 'axios';
 import MealPlanner from '../models/meal-planner.model';
 import ScheduledMeal from '../models/scheduled-meal.model';
+import { ProductSummary } from '../models/product-summary.model';
 
 class MealPlannerService {
     static async getMealPlannerByUser(
@@ -10,6 +11,19 @@ class MealPlannerService {
         try {
             const response: AxiosResponse = await api.get(
                 `/users/${userId}/meal-planner`,
+            );
+            return response.data;
+        } catch (err) {
+            return null;
+        }
+    }
+
+    static async getProductsSummary(
+        userId: number,
+    ): Promise<ProductSummary[] | null> {
+        try {
+            const response: AxiosResponse = await api.get(
+                `/users/${userId}/meal-planner/products-summary`,
             );
             return response.data;
         } catch (err) {

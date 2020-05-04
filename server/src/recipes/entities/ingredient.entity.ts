@@ -9,7 +9,7 @@ Ingredient extends CustomBaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ type: 'decimal' })
     quantity: number;
 
     @ManyToOne(

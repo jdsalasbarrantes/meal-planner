@@ -5,6 +5,7 @@ import { MealPlannerService } from './services/meal-planner.service';
 import { MealPlannerRepository } from "./repositories/meal-planner.repository";
 import { UsersModule } from "../users/users.module";
 import { ScheduledMealRepository } from "./repositories/scheduled-meal.repository";
+import { ScheduledMealService } from "./services/scheduled-meal.service";
 
 @Module({
     imports: [
@@ -15,7 +16,7 @@ import { ScheduledMealRepository } from "./repositories/scheduled-meal.repositor
         forwardRef(() => UsersModule)
     ],
     controllers: [MealPlannerController],
-    providers: [MealPlannerService],
+    providers: [MealPlannerService, ScheduledMealService],
     exports: [MealPlannerService]
 })
 export class MealPlannerModule {}

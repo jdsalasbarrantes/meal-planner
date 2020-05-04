@@ -10,7 +10,7 @@ export class Product extends CustomBaseEntity {
     @Column()
     name: string;
 
-    @Column()
+    @Column({ type: 'decimal' })
     unitQuantity: number;
 
     @Column()

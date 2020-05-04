@@ -3,6 +3,7 @@ import common from './common';
 import products from './products';
 import recipes from './recipes';
 import ingredients from './ingredients';
+import mealPlanner from './meal-planner';
 
 export default {
     auth,
@@ -10,4 +11,5 @@ export default {
     products,
     recipes,
     ingredients,
+    mealPlanner,
 };
