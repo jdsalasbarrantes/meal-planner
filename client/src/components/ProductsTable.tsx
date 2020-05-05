@@ -23,16 +23,14 @@ const ProductsTable: React.FC<ProductsTableProps> = ({
         <Typography>{t('products:emptyProducts')}</Typography>
     ) : (
         <TableContainer component={Paper}>
-            <Table size="small" aria-label="simple table">
+            <Table>
                 <TableHead>
                     <TableRow>
                         <TableCell>{t('products:properties.name')}</TableCell>
-                        <TableCell align="right">
+                        <TableCell>
                             {t('products:properties.quantity')}
                         </TableCell>
-                        <TableCell align="right">
-                            {t('products:properties.price')}
-                        </TableCell>
+                        <TableCell>{t('products:properties.price')}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -41,12 +39,12 @@ const ProductsTable: React.FC<ProductsTableProps> = ({
                             <TableCell component="th" scope="row">
                                 {product.name}
                             </TableCell>
-                            <TableCell align="right">
+                            <TableCell>
                                 {`${product.unitQuantity} ${t(
                                     `products:unitScales.${product.unitScale}`,
                                 )}`}
                             </TableCell>
-                            <TableCell align="right">{product.price}</TableCell>
+                            <TableCell>{product.price}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

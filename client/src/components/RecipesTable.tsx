@@ -10,10 +10,11 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
 import Recipe from '../models/recipe.model';
 import { EDIT_RECIPE } from '../constants/routes';
+import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
+import { useStyles } from '../assets/styles';
 
 interface RecipesTableProps {
     recipes: Recipe[];
@@ -23,24 +24,21 @@ const RecipesTable: React.FC<RecipesTableProps> = ({
     recipes,
 }): JSX.Element => {
     const { t } = useTranslation();
+    const classes = useStyles();
     const history = useHistory();
     return recipes.length === 0 ? (
         <Typography>{t('recipes:emptyRecipes')}</Typography>
     ) : (
         <TableContainer component={Paper}>
-            <Table size="small" aria-label="simple table">
+            <Table>
                 <TableHead>
                     <TableRow>
                         <TableCell>{t('recipes:properties.name')}</TableCell>
-                        <TableCell align="right">
+                        <TableCell>
                             {t('recipes:properties.preparationTime')}
                         </TableCell>
-                        <TableCell align="right">
-                            {t('recipes:properties.cost')}
-                        </TableCell>
-                        <TableCell align="right">
-                            {t('common:actions')}
-                        </TableCell>
+                        <TableCell>{t('recipes:properties.cost')}</TableCell>
+                        <TableCell>{t('common:actions')}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -50,15 +48,12 @@ const RecipesTable: React.FC<RecipesTableProps> = ({
                                 <TableCell component="th" scope="row">
                                     {recipe.name}
                                 </TableCell>
-                                <TableCell align="right">
-                                    {recipe.preparationTime}
-                                </TableCell>
-                                <TableCell align="right">
-                                    {recipe.cost}
-                                </TableCell>
-                                <TableCell align="right">
+                                <TableCell>{recipe.preparationTime}</TableCell>
+                                <TableCell>{recipe.cost}</TableCell>
+                                <TableCell>
                                     <IconButton
                                         color="primary"
+                                        className={classes.p1}
                                         onClick={(): void =>
                                             history.push(
                                                 `${EDIT_RECIPE}?id=${recipe.id}`,

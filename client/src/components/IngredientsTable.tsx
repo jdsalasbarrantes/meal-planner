@@ -49,12 +49,10 @@ const IngredientsTable: React.FC<IngredientsTableProps> = ({
                             <TableCell>
                                 {t('products:properties.name')}
                             </TableCell>
-                            <TableCell align="right">
+                            <TableCell>
                                 {t('ingredients:properties.quantity')}
                             </TableCell>
-                            <TableCell align="right">
-                                {t('common:actions')}
-                            </TableCell>
+                            <TableCell>{t('common:actions')}</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -68,12 +66,12 @@ const IngredientsTable: React.FC<IngredientsTableProps> = ({
                                         <TableCell component="th" scope="row">
                                             {product.name}
                                         </TableCell>
-                                        <TableCell align="right">
+                                        <TableCell>
                                             {`${ingredient.quantity} ${t(
                                                 `products:unitScales.${product.unitScale}`,
                                             )}`}
                                         </TableCell>
-                                        <TableCell align="right">
+                                        <TableCell>
                                             <IconButton
                                                 color="primary"
                                                 onClick={(): void =>
@@ -90,7 +88,7 @@ const IngredientsTable: React.FC<IngredientsTableProps> = ({
                             },
                         )}
                         <TableRow>
-                            <TableCell colSpan={3} align="right">
+                            <TableCell colSpan={3}>
                                 <Typography>
                                     {`${t(
                                         'recipes:properties.cost',

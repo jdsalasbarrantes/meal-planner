@@ -7,6 +7,8 @@ export default {
     products: 'Products',
     product: 'Product',
     recipes: 'Recipes',
+    planner: 'Planner',
+    summary: 'Summary',
     info: 'Info',
     loading: 'loading',
     ingredients: 'Ingredients',

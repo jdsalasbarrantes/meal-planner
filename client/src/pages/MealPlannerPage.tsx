@@ -19,6 +19,7 @@ const MealPlannerPage: React.FC = (): JSX.Element => {
     const classes = useStyles();
     const [scheduledMeals, setScheduledMeals] = useState([] as ScheduledMeal[]);
     const [recipes, setRecipes] = useState([] as Recipe[]);
+    const [loading, setLoading] = useState(true);
     const [productsSummary, setProductsSummary] = useState(
         [] as ProductSummary[],
     );
@@ -27,29 +28,32 @@ const MealPlannerPage: React.FC = (): JSX.Element => {
         (async (): Promise<void> => {
             const currentUser = authService.getCurrentUser();
             if (currentUser) {
-                const storedMealPlanner = await mealPlannerService.getMealPlannerByUser(
-                    currentUser.id,
-                );
-                if (storedMealPlanner) {
-                    const storedRecipes = await recipesService.getAllRecipes();
-                    setScheduledMeals(storedMealPlanner.scheduledMeals);
-                    setRecipes(storedRecipes);
-                    const storedProductsSummary = await mealPlannerService.getProductsSummary(
+                const storedRecipes = await recipesService.getAllRecipes();
+                if (!_isEmpty(storedRecipes)) {
+                    const storedMealPlanner = await mealPlannerService.getMealPlannerByUser(
                         currentUser.id,
                     );
-                    if (storedProductsSummary) {
-                        setProductsSummary(storedProductsSummary);
+                    if (storedMealPlanner) {
+                        const storedProductsSummary = await mealPlannerService.getProductsSummary(
+                            currentUser.id,
+                        );
+                        if (storedProductsSummary) {
+                            setProductsSummary(storedProductsSummary);
+                        }
+                        setScheduledMeals(storedMealPlanner.scheduledMeals);
+                        setRecipes(storedRecipes);
                     }
                 }
+                setLoading(false);
             }
         })();
     }, []);
 
-    const handleMealChange = (
-        recipeId: number | undefined,
+    const handleMealChange = async (
+        recipeId: number,
         day: string,
         position: number,
-    ) => async (): Promise<void> => {
+    ): Promise<void> => {
         const currentUser = authService.getCurrentUser();
         if (currentUser) {
             const updatedMealPlanner = await mealPlannerService.updateMealPlanner(
@@ -69,10 +73,21 @@ const MealPlannerPage: React.FC = (): JSX.Element => {
         }
     };
     return (
-        <PageContainer>
-            {_isEmpty(scheduledMeals) ? (
-                <Typography>{t('common:loading')}</Typography>
-            ) : (
+        <PageContainer lgSize={11}>
+            <Typography variant="h4" className={classes.mb5}>
+                {t('common:planner')}
+            </Typography>
+            {loading && (
+                <Grid container justify="center">
+                    <Typography>{t('common:loading')}</Typography>
+                </Grid>
+            )}
+            {!loading && _isEmpty(recipes) && (
+                <Grid container justify="center">
+                    <Typography>{t('mealPlanner:emptyData')}</Typography>
+                </Grid>
+            )}
+            {!_isEmpty(recipes) && (
                 <Grid container>
                     <Grid container>
                         <MealPlannerTable
@@ -82,6 +97,9 @@ const MealPlannerPage: React.FC = (): JSX.Element => {
                         />
                     </Grid>
                     <Grid container className={classes.mt9}>
+                        <Typography variant="h4" className={classes.mb5}>
+                            {t('common:summary')}
+                        </Typography>
                         <ProductsSummaryTable
                             productsSummary={productsSummary}
                         />

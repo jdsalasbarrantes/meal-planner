@@ -8,6 +8,17 @@ const MaterialUITheme = createMuiTheme({
             main: pink['A400'],
         },
     },
+    overrides: {
+        MuiTableCell: {
+            head: {
+                fontWeight: 'bold',
+                textAlign: 'center',
+            },
+            body: {
+                textAlign: 'center',
+            },
+        },
+    },
 });
 
 export default MaterialUITheme;

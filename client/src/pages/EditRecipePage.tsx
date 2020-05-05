@@ -52,6 +52,7 @@ const EditRecipePage: React.FC = (): JSX.Element => {
                 t('recipes:notifications.recipeUpdated'),
                 'success',
             );
+            history.push(RECIPES_PAGE);
         } else {
             snackbar.showMessage(t('common:notifications.error'), 'error');
         }

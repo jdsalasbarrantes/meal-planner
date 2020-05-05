@@ -53,6 +53,9 @@ const generalStyles: { [field: string]: { [field: string]: string } } = {
     fullWidth: {
         width: '100%',
     },
+    fullHeight: {
+        height: '100%',
+    },
 };
 
 const fontStyles: { [field: string]: { [field: string]: string } } = {

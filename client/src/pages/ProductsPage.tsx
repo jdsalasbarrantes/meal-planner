@@ -5,6 +5,7 @@ import ProductsTable from '../components/ProductsTable';
 import PageContainer from '../components/PageContainer';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import { useStyles } from '../assets/styles';
 import { ADD_PRODUCT } from '../constants/routes';
@@ -27,6 +28,11 @@ const ProductsPage: React.FC = (): JSX.Element => {
 
     return (
         <PageContainer>
+            <Grid container>
+                <Typography variant="h4" className={classes.ml1}>
+                    {t('common:products')}
+                </Typography>
+            </Grid>
             <Grid container justify="flex-end" className={classes.mb5}>
                 <Button
                     variant="contained"

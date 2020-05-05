@@ -14,7 +14,7 @@ export class MealPlanner extends BaseEntity {
     )
     scheduledMeals: ScheduledMeal[];
 
-    @OneToOne(() => User)
+    @OneToOne(() => User, { onDelete: 'CASCADE'})
     user: User;
 
     @Column()

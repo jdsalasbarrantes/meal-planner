@@ -14,9 +14,4 @@ export class UpdateRecipeDto {
     @IsNumber()
     @IsPositive()
     preparationTime: number;
-
-    @IsOptional()
-    @IsNumber()
-    @IsPositive()
-    cost: number;
 }

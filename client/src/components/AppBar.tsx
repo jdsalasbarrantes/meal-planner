@@ -5,6 +5,9 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import LogOutIcon from '@material-ui/icons/ExitToApp';
+import TodayIcon from '@material-ui/icons/Today';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
+import StoreIcon from '@material-ui/icons/Store';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { useStyles } from '../assets/styles';
@@ -49,14 +52,26 @@ const AppBar: React.FC = (): JSX.Element => {
                                     </Button>
                                 </Grid>
                                 <Grid item>
-                                    <Grid container wrap="nowrap">
+                                    <Grid
+                                        container
+                                        wrap="nowrap"
+                                        className={classes.fullHeight}
+                                    >
+                                        <Button
+                                            color="inherit"
+                                            onClick={handleRedirect(
+                                                LANDING_PAGE,
+                                            )}
+                                        >
+                                            <TodayIcon />
+                                        </Button>
                                         <Button
                                             color="inherit"
                                             onClick={handleRedirect(
                                                 RECIPES_PAGE,
                                             )}
                                         >
-                                            {t('common:recipes')}
+                                            <MenuBookIcon />
                                         </Button>
                                         <Button
                                             color="inherit"
@@ -64,7 +79,7 @@ const AppBar: React.FC = (): JSX.Element => {
                                                 PRODUCTS_PAGE,
                                             )}
                                         >
-                                            {t('common:products')}
+                                            <StoreIcon />
                                         </Button>
                                         <Button
                                             color="inherit"

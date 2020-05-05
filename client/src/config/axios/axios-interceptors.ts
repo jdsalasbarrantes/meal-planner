@@ -27,9 +27,11 @@ export default function (api: AxiosInstance): void {
         (response: AxiosResponse): AxiosResponse => response,
         (error: AxiosError): AxiosError | Promise<AxiosError> => {
             if (error.response && error.response.status === 401) {
-                authService.removeCurrentUser();
-                window.location.replace(LOGIN_PAGE);
-                return Promise.reject(error);
+                if (authService.getCurrentUser()) {
+                    authService.removeCurrentUser();
+                    window.location.replace(LOGIN_PAGE);
+                    return Promise.reject(error);
+                }
             }
             return error;
         },
