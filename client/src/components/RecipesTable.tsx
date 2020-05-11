@@ -49,7 +49,11 @@ const RecipesTable: React.FC<RecipesTableProps> = ({
                                     {recipe.name}
                                 </TableCell>
                                 <TableCell>{recipe.preparationTime}</TableCell>
-                                <TableCell>{recipe.cost}</TableCell>
+                                <TableCell>
+                                    {t('common:currencyFormat', {
+                                        amount: recipe.cost,
+                                    })}
+                                </TableCell>
                                 <TableCell>
                                     <IconButton
                                         color="primary"

@@ -44,7 +44,11 @@ const ProductsTable: React.FC<ProductsTableProps> = ({
                                     `products:unitScales.${product.unitScale}`,
                                 )}`}
                             </TableCell>
-                            <TableCell>{product.price}</TableCell>
+                            <TableCell>
+                                {t('common:currencyFormat', {
+                                    amount: product.price,
+                                })}
+                            </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

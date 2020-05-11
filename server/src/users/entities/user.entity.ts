@@ -27,6 +27,9 @@ export class User extends BaseEntity {
     @OneToOne(() => MealPlanner)
     mealPlanner: MealPlanner;
 
+    @Column({ default: 'CRC'})
+    currency: string;
+
     async validatePassword(password: string): Promise<boolean> {
         const hash = await bcrypt.hash(password, this.salt);
         return hash === this.password;

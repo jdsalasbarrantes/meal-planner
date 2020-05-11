@@ -13,6 +13,7 @@ export default {
     loading: 'loading',
     ingredients: 'Ingredients',
     actions: 'Actions',
+    currencyFormat: '{{amount, currency}}',
     notifications: {
         error: 'Hmmm, something went wrong!',
     },

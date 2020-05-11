@@ -40,7 +40,11 @@ const ProductsSummaryTable: React.FC<ProductsSummaryTableProps> = ({
                                 <TableCell>{`${Math.floor(
                                     product.surplus,
                                 )}%`}</TableCell>
-                                <TableCell>{product.cost}</TableCell>
+                                <TableCell>
+                                    {t('common:currencyFormat', {
+                                        amount: product.cost,
+                                    })}
+                                </TableCell>
                             </TableRow>
                         ),
                     )}

@@ -16,7 +16,6 @@ export class MealPlannerRepository extends Repository<MealPlanner> {
                 "CEILING(SUM(ingredient.quantity) / CAST(product.unitQuantity AS DECIMAL)) as units," +
                 "(CEILING(SUM(ingredient.quantity) / CAST(product.unitQuantity AS DECIMAL)) - (SUM(ingredient.quantity) / CAST(product.unitQuantity AS DECIMAL))) * 100 as surplus," +
                 "(CEILING(SUM(ingredient.quantity) / CAST(product.unitQuantity AS DECIMAL)) * product.price) as cost"
-                // "((CEILING(SUM(ingredient.quantity) / CAST(product.unitQuantity AS DECIMAL)) * product.unitQuantity) - SUM(ingredient.quantity)) as surplus"
             )
             .innerJoin(ScheduledMeal, "scheduledMeal", "mealPlanner.id = scheduledMeal.mealPlannerId")
             .innerJoin(Recipe, "recipe", "scheduledMeal.recipeId = recipe.id")

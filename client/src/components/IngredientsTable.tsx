@@ -89,10 +89,13 @@ const IngredientsTable: React.FC<IngredientsTableProps> = ({
                         )}
                         <TableRow>
                             <TableCell colSpan={3}>
-                                <Typography>
-                                    {`${t(
-                                        'recipes:properties.cost',
-                                    )}:  ${recipeCost}`}
+                                <Typography variant="body2">
+                                    {`${t('recipes:properties.cost')}:  ${t(
+                                        'common:currencyFormat',
+                                        {
+                                            amount: recipeCost,
+                                        },
+                                    )}`}
                                 </Typography>
                             </TableCell>
                         </TableRow>
