@@ -9,7 +9,12 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
 import { useTranslation } from 'react-i18next';
+import { useStyles } from '../assets/styles';
+import { useHistory } from 'react-router-dom';
+import { EDIT_PRODUCT } from '../constants/routes';
 
 interface ProductsTableProps {
     products: Product[];
@@ -19,6 +24,8 @@ const ProductsTable: React.FC<ProductsTableProps> = ({
     products,
 }): JSX.Element => {
     const { t } = useTranslation();
+    const classes = useStyles();
+    const history = useHistory();
     return products.length === 0 ? (
         <Typography>{t('products:emptyProducts')}</Typography>
     ) : (
@@ -31,6 +38,7 @@ const ProductsTable: React.FC<ProductsTableProps> = ({
                             {t('products:properties.quantity')}
                         </TableCell>
                         <TableCell>{t('products:properties.price')}</TableCell>
+                        <TableCell>{t('common:actions')}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -48,6 +56,19 @@ const ProductsTable: React.FC<ProductsTableProps> = ({
                                 {t('common:currencyFormat', {
                                     amount: product.price,
                                 })}
+                            </TableCell>
+                            <TableCell>
+                                <IconButton
+                                    color="primary"
+                                    className={classes.p1}
+                                    onClick={(): void =>
+                                        history.push(
+                                            `${EDIT_PRODUCT}?id=${product.id}`,
+                                        )
+                                    }
+                                >
+                                    <EditIcon />
+                                </IconButton>
                             </TableCell>
                         </TableRow>
                     ))}

@@ -19,11 +19,13 @@ import {
 interface ProductFormProps {
     onSubmit: Function;
     onCancel: Function;
+    initialValues?: object;
 }
 
 const ProductForm: React.FC<ProductFormProps> = ({
     onSubmit,
     onCancel,
+    initialValues,
 }): JSX.Element => {
     const { t } = useTranslation();
     const classes = useStyles();
@@ -41,7 +43,10 @@ const ProductForm: React.FC<ProductFormProps> = ({
     };
 
     return (
-        <Formik initialValues={{}} onSubmit={handleSubmit}>
+        <Formik
+            initialValues={initialValues as FormikValues}
+            onSubmit={handleSubmit}
+        >
             {({ isSubmitting }: FormikProps<FormikValues>): JSX.Element => (
                 <Form>
                     <Grid container direction="column">
@@ -114,9 +119,14 @@ const ProductForm: React.FC<ProductFormProps> = ({
     );
 };
 
+ProductForm.defaultProps = {
+    initialValues: {},
+};
+
 ProductForm.propTypes = {
     onSubmit: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
+    initialValues: PropTypes.shape({}),
 };
 
 export default ProductForm;

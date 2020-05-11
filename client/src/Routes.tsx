@@ -8,6 +8,7 @@ import AddProductPage from './pages/AddProductPage';
 import RecipesPage from './pages/RecipesPage';
 import AddRecipePage from './pages/AddRecipePage';
 import EditRecipePage from './pages/EditRecipePage';
+import EditProductPage from './pages/EditProductPage';
 import AppBar from './components/AppBar';
 import { User } from './models/user.model';
 import * as routes from './constants/routes';
@@ -40,6 +41,11 @@ const Routes: React.FC<RoutesProps> = ({ user }): JSX.Element => (
                         path={routes.ADD_PRODUCT}
                         exact
                         component={AddProductPage}
+                    />
+                    <Route
+                        path={routes.EDIT_PRODUCT}
+                        exact
+                        component={EditProductPage}
                     />
                     <Route
                         path={routes.RECIPES_PAGE}

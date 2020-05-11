@@ -4,4 +4,5 @@ export enum ProductUnitScale {
     LITERS = 'liters',
     SLICES = 'slices',
     UNITS = 'units',
+    PORTIONS = 'portions'
 }

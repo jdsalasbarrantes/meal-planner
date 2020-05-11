@@ -9,6 +9,7 @@ export default {
     addProduct: 'Add Product',
     notifications: {
         productAdded: 'Product added, woot woot',
+        productUpdated: 'Product updated, woot woot',
     },
     unitScales: {
         grams: 'Grams',
@@ -16,6 +17,7 @@ export default {
         liters: 'Liters',
         slices: 'Slices',
         units: 'Units',
+        portions: 'Portions',
     },
     emptyProducts: 'No products yet, do something!',
 };

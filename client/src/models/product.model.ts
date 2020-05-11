@@ -27,4 +27,8 @@ export const unitScaleTypes = [
         value: 'units',
         i18n: 'products:unitScales.units',
     },
+    {
+        value: 'portions',
+        i18n: 'products:unitScales.portions',
+    },
 ];
