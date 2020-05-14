@@ -25,7 +25,7 @@ export class ProductsController {
     @Post()
     @UsePipes(ValidationPipe)
     createProduct(
-        @Body() createProductDto: CreateProductDto,
+        @Body(ValidationPipe) createProductDto: CreateProductDto,
     ): Promise<Product> {
         return this.productsService.createProduct(createProductDto);
     }
@@ -43,7 +43,7 @@ export class ProductsController {
     @Put('/:id')
     updateProduct(
         @Param('id', ParseIntPipe) id: number,
-        @Body() updateProductDto: UpdateProductDto
+        @Body(ValidationPipe) updateProductDto: UpdateProductDto
     ): Promise<Product> {
         return this.productsService.updateProduct(id, updateProductDto);
     }

@@ -1,4 +1,4 @@
-import { Controller, Get, Put, Param, ParseIntPipe, UseGuards, Body } from '@nestjs/common';
+import { Controller, Get, Put, Param, ParseIntPipe, UseGuards, Body, ValidationPipe } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { MealPlanner } from "../entities/meal-planner.entity";
 import { MealPlannerService } from "../services/meal-planner.service";
@@ -24,7 +24,7 @@ export class MealPlannerController {
     @Put()
     updateMealPlanner(
         @Param('userId', ParseIntPipe) userId: number,
-        @Body() updateMealPlannerDto: UpdateMealPlannerDto): Promise<MealPlanner> {
+        @Body(ValidationPipe) updateMealPlannerDto: UpdateMealPlannerDto): Promise<MealPlanner> {
         return this.mealPlannerService.updateMealPlanner(userId, updateMealPlannerDto);
     }
 

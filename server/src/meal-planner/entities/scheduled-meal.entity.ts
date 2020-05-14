@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn, ManyToMany, JoinTable, RelationId } from 'typeorm';
 import { MealPlanner } from "./meal-planner.entity";
 import { Recipe } from "../../recipes/entities/recipe.entity";
 
@@ -13,10 +13,6 @@ export class ScheduledMeal extends BaseEntity {
     @Column()
     position: number;
 
-    @Column({ nullable: true })
-    customMeal: string;
-
-
     @ManyToOne(
         () => MealPlanner,
         weekPlanner => weekPlanner.scheduledMeals,
@@ -27,12 +23,10 @@ export class ScheduledMeal extends BaseEntity {
     @Column()
     mealPlannerId: number;
 
-    @ManyToOne(
-        () => Recipe,
-        recipe => recipe.scheduledMeals
-    )
-    recipe: Recipe;
+    @ManyToMany(() => Recipe, { cascade: true})
+    @JoinTable()
+    recipes: Recipe[];
 
-    @Column({ nullable: true })
-    recipeId: number;
+    @RelationId((scheduledMeal: ScheduledMeal) => scheduledMeal.recipes)
+    recipeIds: number[];
 }

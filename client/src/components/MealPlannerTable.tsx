@@ -7,13 +7,15 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select/Select';
 import Paper from '@material-ui/core/Paper';
-import MenuItem from '@material-ui/core/MenuItem';
-import _find from 'lodash/find';
-import { useTranslation } from 'react-i18next';
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import Recipe from '../models/recipe.model';
 import ScheduledMeal from '../models/scheduled-meal.model';
+import _find from 'lodash/find';
+import _map from 'lodash/map';
+import { useTranslation } from 'react-i18next';
+import { useStyles } from '../assets/styles';
 
 interface MealPlannerTableProps {
     recipes: Recipe[];
@@ -27,6 +29,8 @@ const MealPlannerTable: React.FC<MealPlannerTableProps> = ({
     onMealChange,
 }): JSX.Element => {
     const { t } = useTranslation();
+    const classes = useStyles();
+
     //TODO: Fix these arrays
     const days = [
         'monday',
@@ -38,14 +42,18 @@ const MealPlannerTable: React.FC<MealPlannerTableProps> = ({
         'sunday',
     ];
     const positions = [0, 1, 2, 3, 4];
+    const recipeIds = _map(recipes, 'id') as number[];
 
-    const handleChange = (
-        event: React.ChangeEvent<{ value: unknown }>,
+    const handleChange = (day: string, position: number) => (
+        event: React.ChangeEvent<{}>,
+        recipeIds: number[],
     ): void => {
-        const [recipeId, day, position] = (event.target.value as string).split(
-            ',',
-        );
-        onMealChange(recipeId, day, parseInt(position));
+        onMealChange(recipeIds, day, position);
+    };
+
+    const getRecipeName = (recipeId: number): string => {
+        const recipe = _find(recipes, (r) => r.id === recipeId);
+        return recipe ? recipe.name : '';
     };
 
     return (
@@ -66,50 +74,54 @@ const MealPlannerTable: React.FC<MealPlannerTableProps> = ({
                     {positions.map(
                         (position: number): JSX.Element => (
                             <TableRow key={position}>
-                                {days.map(
-                                    (day): JSX.Element => {
-                                        const meal = _find(
-                                            scheduledMeals,
-                                            (meal) =>
-                                                meal.position === position &&
-                                                meal.day === day,
-                                        );
-                                        return (
-                                            <TableCell key={day}>
-                                                <FormControl fullWidth>
-                                                    <Select
-                                                        variant="outlined"
-                                                        value={
-                                                            meal &&
-                                                            meal.recipeId
-                                                                ? `${meal.recipeId},${day},${position}`
-                                                                : ''
-                                                        }
-                                                        onChange={handleChange}
-                                                    >
-                                                        <MenuItem value="" />
-                                                        {recipes.map(
-                                                            (
-                                                                recipe: Recipe,
-                                                            ): JSX.Element => (
-                                                                <MenuItem
-                                                                    key={
-                                                                        recipe.id
-                                                                    }
-                                                                    value={`${recipe.id},${day},${position}`}
-                                                                >
-                                                                    {
-                                                                        recipe.name
-                                                                    }
-                                                                </MenuItem>
-                                                            ),
-                                                        )}
-                                                    </Select>
-                                                </FormControl>
-                                            </TableCell>
-                                        );
-                                    },
-                                )}
+                                {days.map((day): JSX.Element | null => {
+                                    const meal = _find(
+                                        scheduledMeals,
+                                        (meal) =>
+                                            meal.position === position &&
+                                            meal.day === day,
+                                    );
+
+                                    return meal ? (
+                                        <TableCell
+                                            key={day}
+                                            className={classes.maxWidth200}
+                                        >
+                                            <FormControl fullWidth>
+                                                <Autocomplete
+                                                    multiple
+                                                    id="tags-outlined"
+                                                    options={recipeIds}
+                                                    getOptionLabel={(
+                                                        recipeId: number,
+                                                    ): string =>
+                                                        getRecipeName(recipeId)
+                                                    }
+                                                    defaultValue={
+                                                        meal.recipeIds
+                                                    }
+                                                    filterSelectedOptions
+                                                    disableClearable
+                                                    renderInput={(
+                                                        params,
+                                                    ): JSX.Element => (
+                                                        <TextField
+                                                            {...params}
+                                                            variant="outlined"
+                                                            label={t(
+                                                                'common:recipes',
+                                                            )}
+                                                        />
+                                                    )}
+                                                    onChange={handleChange(
+                                                        day,
+                                                        position,
+                                                    )}
+                                                />
+                                            </FormControl>
+                                        </TableCell>
+                                    ) : null;
+                                })}
                             </TableRow>
                         ),
                     )}

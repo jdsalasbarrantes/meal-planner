@@ -1,21 +1,15 @@
-import { IsNumber, IsPositive, IsIn, IsOptional, IsString } from 'class-validator';
+import { IsNumber, IsArray, Min, IsIn } from 'class-validator';
 import { WeekDays } from "../enums/week-days.enum";
 
 export class UpdateMealPlannerDto {
     @IsNumber()
-    @IsPositive()
+    @Min(0)
     position: number;
 
     @IsIn(Object.values(WeekDays))
     day: string;
 
-    @IsNumber()
-    @IsPositive()
-    @IsOptional()
-    recipeId: number;
-
-    @IsString()
-    @IsOptional()
-    customMeal: string;
+    @IsArray()
+    recipeIds: number[];
 
 }

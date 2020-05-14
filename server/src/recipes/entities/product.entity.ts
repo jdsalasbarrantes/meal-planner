@@ -16,7 +16,7 @@ export class Product extends CustomBaseEntity {
     @Column()
     unitScale: string;
 
-    @Column({ nullable: true })
+    @Column({ default: 0})
     price: number;
 
     @OneToMany(

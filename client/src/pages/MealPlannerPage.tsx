@@ -50,7 +50,7 @@ const MealPlannerPage: React.FC = (): JSX.Element => {
     }, []);
 
     const handleMealChange = async (
-        recipeId: number,
+        recipeIds: number[],
         day: string,
         position: number,
     ): Promise<void> => {
@@ -58,7 +58,7 @@ const MealPlannerPage: React.FC = (): JSX.Element => {
         if (currentUser) {
             const updatedMealPlanner = await mealPlannerService.updateMealPlanner(
                 currentUser.id,
-                { day, position, recipeId },
+                { day, position, recipeIds },
             );
 
             if (updatedMealPlanner) {

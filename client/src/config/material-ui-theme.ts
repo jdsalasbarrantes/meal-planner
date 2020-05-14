@@ -1,5 +1,6 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 import pink from '@material-ui/core/colors/pink';
+import grey from '@material-ui/core/colors/grey';
 
 const MaterialUITheme = createMuiTheme({
     palette: {
@@ -16,6 +17,16 @@ const MaterialUITheme = createMuiTheme({
             },
             body: {
                 textAlign: 'center',
+            },
+        },
+        MuiChip: {
+            root: {
+                borderRadius: '4px',
+                border: `1px dashed ${pink['A400']}`,
+                backgroundColor: 'inherit',
+            },
+            deleteIcon: {
+                color: grey[400],
             },
         },
     },

@@ -25,7 +25,7 @@ export class RecipesController {
 
     @Post()
     @UsePipes(ValidationPipe)
-    createRecipe(@Body() createRecipeDto: CreateRecipeDto): Promise<Recipe> {
+    createRecipe(@Body(ValidationPipe) createRecipeDto: CreateRecipeDto): Promise<Recipe> {
         return this.recipesService.createRecipe(createRecipeDto);
     }
 
@@ -43,7 +43,7 @@ export class RecipesController {
     @UsePipes(ValidationPipe)
     updateRecipe(
         @Param('id', ParseIntPipe) id: number,
-        @Body() updateRecipeDto: UpdateRecipeDto
+        @Body(ValidationPipe) updateRecipeDto: UpdateRecipeDto
     ): Promise<Recipe> {
         return this.recipesService.updateRecipe(id, updateRecipeDto);
     }
@@ -57,7 +57,7 @@ export class RecipesController {
     @UsePipes(ValidationPipe)
     createIngredient(
         @Param('recipeId', ParseIntPipe) recipeId: number,
-        @Body() createIngredientDto: CreateIngredientDto,
+        @Body(ValidationPipe) createIngredientDto: CreateIngredientDto,
     ): Promise<Recipe> {
         return this.recipesService.createIngredient(recipeId, createIngredientDto);
     }

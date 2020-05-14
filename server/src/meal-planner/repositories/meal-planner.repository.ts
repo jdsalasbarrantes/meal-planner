@@ -10,19 +10,19 @@ import { Product } from "../../recipes/entities/product.entity";
 export class MealPlannerRepository extends Repository<MealPlanner> {
 
     async getProductsSummary(userId: number): Promise<ProductSummaryDto[]> {
-        return this.createQueryBuilder("mealPlanner")
+        return await this.createQueryBuilder("mealPlanner")
             .select(
-                "product.name as name," +
-                "CEILING(SUM(ingredient.quantity) / CAST(product.unitQuantity AS DECIMAL)) as units," +
-                "(CEILING(SUM(ingredient.quantity) / CAST(product.unitQuantity AS DECIMAL)) - (SUM(ingredient.quantity) / CAST(product.unitQuantity AS DECIMAL))) * 100 as surplus," +
-                "(CEILING(SUM(ingredient.quantity) / CAST(product.unitQuantity AS DECIMAL)) * product.price) as cost"
+                "products.name as name," +
+                "CEILING(SUM(ingredients.quantity) / CAST(products.unitQuantity AS DECIMAL)) as units," +
+                "(CEILING(SUM(ingredients.quantity) / CAST(products.unitQuantity AS DECIMAL)) - (SUM(ingredients.quantity) / CAST(products.unitQuantity AS DECIMAL))) * 100 as surplus," +
+                "(CEILING(SUM(ingredients.quantity) / CAST(products.unitQuantity AS DECIMAL)) * products.price) as cost"
             )
-            .innerJoin(ScheduledMeal, "scheduledMeal", "mealPlanner.id = scheduledMeal.mealPlannerId")
-            .innerJoin(Recipe, "recipe", "scheduledMeal.recipeId = recipe.id")
-            .innerJoin(Ingredient, "ingredient", "recipe.id = ingredient.recipeId")
-            .innerJoin(Product, "product", "ingredient.productId = product.id")
+            .innerJoin('mealPlanner.scheduledMeals', 'scheduledMeals')
+            .innerJoin('scheduledMeals.recipes', 'recipes')
+            .innerJoin('recipes.ingredients', 'ingredients')
+            .innerJoin('ingredients.product', 'products')
             .where("mealPlanner.userId = :userId", { userId })
-            .groupBy("product.id")
+            .groupBy("products.id")
             .getRawMany<ProductSummaryDto>();
     }
 }

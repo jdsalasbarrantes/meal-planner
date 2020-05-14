@@ -5,9 +5,6 @@ import { MealPlanner } from "../entities/meal-planner.entity";
 import { WeekDays } from "../enums/week-days.enum";
 import { ScheduledMeal } from "../entities/scheduled-meal.entity";
 import { UpdateMealPlannerDto } from "../dtos/update-meal-planner.dto";
-import { Recipe } from "../../recipes/entities/recipe.entity";
-import { Product } from "../../recipes/entities/product.entity";
-import { Ingredient } from "../../recipes/entities/ingredient.entity";
 import { ProductSummaryDto } from "../dtos/product-summary.dto";
 
 @Injectable()
@@ -44,7 +41,7 @@ export class MealPlannerService {
     async updateMealPlanner(userId: number, updateMealPlannerDto: UpdateMealPlannerDto): Promise<MealPlanner> {
         const mealPlanner = await this.getMealPlannerByUser(userId);
         let scheduledMealIndex = -1;
-        const { day, position, recipeId, customMeal } = updateMealPlannerDto;
+        const { day, position, recipeIds } = updateMealPlannerDto;
         for (let i = 0; i < mealPlanner.scheduledMeals.length; i ++) {
             if (mealPlanner.scheduledMeals[i].day === day && mealPlanner.scheduledMeals[i].position === position) {
                 scheduledMealIndex = i;
@@ -54,8 +51,12 @@ export class MealPlannerService {
             throw new BadRequestException('The data provided does not match with the meal planner');
         }
 
-        mealPlanner.scheduledMeals[scheduledMealIndex].recipeId = recipeId;
-        mealPlanner.scheduledMeals[scheduledMealIndex].customMeal = customMeal;
+        const recipes = [];
+        recipeIds.forEach(recipeId => {
+           recipes.push({ id: recipeId });
+        });
+
+        mealPlanner.scheduledMeals[scheduledMealIndex].recipes = recipes;
 
         return mealPlanner.save()
     }
