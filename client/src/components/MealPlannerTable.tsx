@@ -14,6 +14,7 @@ import Recipe from '../models/recipe.model';
 import ScheduledMeal from '../models/scheduled-meal.model';
 import _find from 'lodash/find';
 import _map from 'lodash/map';
+import { WeekDays } from '../enums/week-days.enum';
 import { useTranslation } from 'react-i18next';
 import { useStyles } from '../assets/styles';
 
@@ -31,17 +32,9 @@ const MealPlannerTable: React.FC<MealPlannerTableProps> = ({
     const { t } = useTranslation();
     const classes = useStyles();
 
-    //TODO: Fix these arrays
-    const days = [
-        'monday',
-        'tuesday',
-        'wednesday',
-        'thursday',
-        'friday',
-        'saturday',
-        'sunday',
-    ];
+    const days = Object.values(WeekDays);
     const positions = [0, 1, 2, 3, 4];
+    const currentDay = new Date().getDay();
     const recipeIds = _map(recipes, 'id') as number[];
 
     const handleChange = (day: string, position: number) => (
@@ -62,8 +55,16 @@ const MealPlannerTable: React.FC<MealPlannerTableProps> = ({
                 <TableHead>
                     <TableRow>
                         {days.map(
-                            (day: string): JSX.Element => (
-                                <TableCell key={day} align="center">
+                            (day: string, index: number): JSX.Element => (
+                                <TableCell
+                                    key={day}
+                                    align="center"
+                                    className={
+                                        index === currentDay
+                                            ? classes.greyBg
+                                            : ''
+                                    }
+                                >
                                     {t(`common:days.${day}`)}
                                 </TableCell>
                             ),
@@ -74,54 +75,71 @@ const MealPlannerTable: React.FC<MealPlannerTableProps> = ({
                     {positions.map(
                         (position: number): JSX.Element => (
                             <TableRow key={position}>
-                                {days.map((day): JSX.Element | null => {
-                                    const meal = _find(
-                                        scheduledMeals,
-                                        (meal) =>
-                                            meal.position === position &&
-                                            meal.day === day,
-                                    );
+                                {days.map(
+                                    (
+                                        day: string,
+                                        index: number,
+                                    ): JSX.Element | null => {
+                                        const meal = _find(
+                                            scheduledMeals,
+                                            (meal) =>
+                                                meal.position === position &&
+                                                meal.day === day,
+                                        );
 
-                                    return meal ? (
-                                        <TableCell
-                                            key={day}
-                                            className={classes.maxWidth200}
-                                        >
-                                            <FormControl fullWidth>
-                                                <Autocomplete
-                                                    multiple
-                                                    id="tags-outlined"
-                                                    options={recipeIds}
-                                                    getOptionLabel={(
-                                                        recipeId: number,
-                                                    ): string =>
-                                                        getRecipeName(recipeId)
-                                                    }
-                                                    defaultValue={
-                                                        meal.recipeIds
-                                                    }
-                                                    filterSelectedOptions
-                                                    disableClearable
-                                                    renderInput={(
-                                                        params,
-                                                    ): JSX.Element => (
-                                                        <TextField
-                                                            {...params}
-                                                            variant="outlined"
-                                                            label={t(
-                                                                'common:recipes',
-                                                            )}
-                                                        />
-                                                    )}
-                                                    onChange={handleChange(
-                                                        day,
-                                                        position,
-                                                    )}
-                                                />
-                                            </FormControl>
-                                        </TableCell>
-                                    ) : null;
-                                })}
+                                        return meal ? (
+                                            <TableCell
+                                                key={day}
+                                                className={`${
+                                                    classes.maxWidth120
+                                                }
+                                                 ${
+                                                     index === currentDay
+                                                         ? classes.greyBg
+                                                         : ''
+                                                 }`}
+                                            >
+                                                <FormControl
+                                                    fullWidth
+                                                    className={classes.whiteBg}
+                                                >
+                                                    <Autocomplete
+                                                        multiple
+                                                        id="tags-outlined"
+                                                        options={recipeIds}
+                                                        getOptionLabel={(
+                                                            recipeId: number,
+                                                        ): string =>
+                                                            getRecipeName(
+                                                                recipeId,
+                                                            )
+                                                        }
+                                                        defaultValue={
+                                                            meal.recipeIds
+                                                        }
+                                                        filterSelectedOptions
+                                                        disableClearable
+                                                        renderInput={(
+                                                            params,
+                                                        ): JSX.Element => (
+                                                            <TextField
+                                                                {...params}
+                                                                variant="outlined"
+                                                                label={t(
+                                                                    'common:recipes',
+                                                                )}
+                                                            />
+                                                        )}
+                                                        onChange={handleChange(
+                                                            day,
+                                                            position,
+                                                        )}
+                                                    />
+                                                </FormControl>
+                                            </TableCell>
+                                        ) : null;
+                                    },
+                                )}
                             </TableRow>
                         ),
                     )}

@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const spacing: { [field: string]: string } = {
+export const spacing: { [field: string]: string } = {
     0: '0px',
     1: '5px',
     2: '10px',
@@ -59,8 +59,17 @@ const generalStyles: { [field: string]: { [field: string]: string } } = {
     maxWidth200: {
         maxWidth: '200px',
     },
+    maxWidth120: {
+        maxWidth: '120px',
+    },
     noBorder: {
         border: '0px',
+    },
+    greyBg: {
+        backgroundColor: '#eae9e9',
+    },
+    whiteBg: {
+        backgroundColor: 'white',
     },
 };
 

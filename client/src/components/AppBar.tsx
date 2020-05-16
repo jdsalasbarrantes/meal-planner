@@ -38,7 +38,7 @@ const AppBar: React.FC = (): JSX.Element => {
                                 container
                                 wrap="nowrap"
                                 justify="space-between"
-                                className={classes.pl1}
+                                className={classes.px2}
                             >
                                 <Grid item>
                                     <Button

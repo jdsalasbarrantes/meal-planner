@@ -1,6 +1,7 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 import pink from '@material-ui/core/colors/pink';
 import grey from '@material-ui/core/colors/grey';
+import { spacing } from '../assets/styles';
 
 const MaterialUITheme = createMuiTheme({
     palette: {
@@ -24,6 +25,12 @@ const MaterialUITheme = createMuiTheme({
                 borderRadius: '4px',
                 border: `1px dashed ${pink['A400']}`,
                 backgroundColor: 'inherit',
+                padding: spacing[1],
+                height: 'none',
+            },
+            label: {
+                whiteSpace: 'break-spaces',
+                textAlign: 'left',
             },
             deleteIcon: {
                 color: grey[400],
