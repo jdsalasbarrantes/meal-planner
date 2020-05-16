@@ -11,6 +11,7 @@ export default {
     notifications: {
         recipeAdded: 'Recipe added, woot woot!',
         recipeUpdated: 'Recipe updated, woot woot!',
+        recipeDeleted: 'Recipe deleted, woot woot!',
         ingredientAdded: 'Ingredient added, woot woot!',
         ingredientDeleted: 'Ingredient deleted, woot woot!',
     },

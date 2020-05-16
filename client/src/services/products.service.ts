@@ -44,6 +44,15 @@ class ProductsService {
             return null;
         }
     }
+
+    static async deleteProduct(id: number): Promise<boolean> {
+        try {
+            const response: AxiosResponse = await api.delete(`/products/${id}`);
+            return response.status === 200;
+        } catch (err) {
+            return false;
+        }
+    }
 }
 
 export default ProductsService;

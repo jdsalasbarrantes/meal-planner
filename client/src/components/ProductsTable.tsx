@@ -11,6 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { useTranslation } from 'react-i18next';
 import { useStyles } from '../assets/styles';
 import { useHistory } from 'react-router-dom';
@@ -18,10 +19,12 @@ import { EDIT_PRODUCT } from '../constants/routes';
 
 interface ProductsTableProps {
     products: Product[];
+    onDelete: Function;
 }
 
 const ProductsTable: React.FC<ProductsTableProps> = ({
     products,
+    onDelete,
 }): JSX.Element => {
     const { t } = useTranslation();
     const classes = useStyles();
@@ -69,6 +72,13 @@ const ProductsTable: React.FC<ProductsTableProps> = ({
                                 >
                                     <EditIcon />
                                 </IconButton>
+                                <IconButton
+                                    color="primary"
+                                    className={`${classes.p1} ${classes.ml2}`}
+                                    onClick={(): void => onDelete(product.id)}
+                                >
+                                    <DeleteIcon />
+                                </IconButton>
                             </TableCell>
                         </TableRow>
                     ))}
@@ -84,6 +94,7 @@ ProductsTable.defaultProps = {
 
 ProductsTable.propTypes = {
     products: PropTypes.array.isRequired,
+    onDelete: PropTypes.func.isRequired,
 };
 
 export default ProductsTable;

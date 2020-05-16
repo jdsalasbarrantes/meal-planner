@@ -21,12 +21,12 @@ class RecipesService {
         }
     }
 
-    static async addRecipe(recipe: Recipe): Promise<boolean> {
+    static async addRecipe(recipe: Recipe): Promise<Recipe | null> {
         try {
             const response: AxiosResponse = await api.post('/recipes', recipe);
-            return response.status === 201;
+            return response.data;
         } catch (err) {
-            return false;
+            return null;
         }
     }
 
@@ -39,6 +39,15 @@ class RecipesService {
             return response.data;
         } catch (err) {
             return null;
+        }
+    }
+
+    static async deleteRecipe(id: number): Promise<boolean> {
+        try {
+            const response: AxiosResponse = await api.delete(`/recipes/${id}`);
+            return response.status === 200;
+        } catch (err) {
+            return false;
         }
     }
 }

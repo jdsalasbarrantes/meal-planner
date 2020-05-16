@@ -10,6 +10,7 @@ export default {
     notifications: {
         productAdded: 'Product added, woot woot',
         productUpdated: 'Product updated, woot woot',
+        productDeleted: 'Product deleted, woot woot',
     },
     unitScales: {
         grams: 'Grams',

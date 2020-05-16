@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Recipe from '../models/recipe.model';
@@ -18,10 +19,12 @@ import { useStyles } from '../assets/styles';
 
 interface RecipesTableProps {
     recipes: Recipe[];
+    onDelete: Function;
 }
 
 const RecipesTable: React.FC<RecipesTableProps> = ({
     recipes,
+    onDelete,
 }): JSX.Element => {
     const { t } = useTranslation();
     const classes = useStyles();
@@ -66,6 +69,15 @@ const RecipesTable: React.FC<RecipesTableProps> = ({
                                     >
                                         <EditIcon />
                                     </IconButton>
+                                    <IconButton
+                                        color="primary"
+                                        className={`${classes.p1} ${classes.ml2}`}
+                                        onClick={(): void =>
+                                            onDelete(recipe.id)
+                                        }
+                                    >
+                                        <DeleteIcon />
+                                    </IconButton>
                                 </TableCell>
                             </TableRow>
                         ),
@@ -82,6 +94,7 @@ RecipesTable.defaultProps = {
 
 RecipesTable.propTypes = {
     recipes: PropTypes.array.isRequired,
+    onDelete: PropTypes.func.isRequired,
 };
 
 export default RecipesTable;
