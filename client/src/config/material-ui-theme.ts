@@ -1,7 +1,7 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 import pink from '@material-ui/core/colors/pink';
 import grey from '@material-ui/core/colors/grey';
-import { spacing } from '../assets/styles';
+import { spacing } from '../assets/spacing';
 
 const MaterialUITheme = createMuiTheme({
     palette: {
